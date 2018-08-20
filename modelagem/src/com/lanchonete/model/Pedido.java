@@ -52,6 +52,9 @@ public class Pedido {
 	public float getValorTotal() {
 		return produto.getPreco() * quantidade;  //retorna a multiplicação do preço unitário do produto pela quantidade de produtos pedidos
 	}
+	public Produto getProduto() {
+		return produto;
+	}
 	@Override
 	public String toString() {
 		String s = isAtendido()? "Atendido":"Ñ atendido";

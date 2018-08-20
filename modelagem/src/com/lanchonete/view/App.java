@@ -5,18 +5,18 @@ import java.util.Scanner;
 import com.lanchonete.model.*;
 public class App {
 	public static void main(String[] args) {
+		Scanner ler = new Scanner(System.in);
 		Cozinha c = new Cozinha();
 		GerenciaMesa gm = new GerenciaMesa();
-		Produto[] produtos = {
-				new Produto(001, "Pão", "é um Pão", 0.50f),
-				new Produto(002, "Café", "é um Café", 0.30f),
-				new Produto(003, "Batata Frita", "são Batatas Fritas", 3.0f),
-				new Produto(004, "X-burger", "é um X-Burger", 6.0f),
-				new Produto(005, "Refrigerante", "é um Refrigerante 300ml", 1.0f)
-		};
-		System.out.println();
+		GerenciaMenu gMenu = new GerenciaMenu();
+		gMenu.adicionarProduto(new Produto(001, "Pão", "é um Pão", 0.50f));
+		gMenu.adicionarProduto(new Produto(002, "Café", "é um Café", 0.30f));
+		gMenu.adicionarProduto(new Produto(003, "Batata Frita", "são Batatas Fritas", 3.0f));
+		gMenu.adicionarProduto(new Produto(004, "X-burger", "é um X-Burger", 6.0f));
+		gMenu.adicionarProduto(new Produto(005, "Refrigerante", "é um Refrigerante 300ml", 1.0f));
+		
+		
 		int i = 0, produto = 0, mesa = 0, numeroPedido = 0, quantidade = 0, dia1 = 0, mes1 = 0, ano1 = 0, dia2 = 0, mes2 = 0, ano2 = 0;
-		Scanner ler = new Scanner(System.in);
 		boolean interruptor = true;
 		while(interruptor) {
 			System.out.print("1-Criar nova comanda\n"
@@ -40,13 +40,12 @@ public class App {
 				numeroPedido = ler.nextInt();
 			}
 			if(i == 3 || i == 5) {
-				for(Produto p : produtos) {
+				for(Produto p : gMenu.listarProdutos()) {
 					System.out.println(p.toString());
 				}
 				System.out.println();
 				System.out.print("Informe o codigo do produto:");
 				produto = ler.nextInt();
-				produto--;
 				System.out.print("Informe a quantidade do mesmo produto:");
 				quantidade = ler.nextInt();
 			}
@@ -69,9 +68,9 @@ public class App {
 			switch(i) {
 			case 1:System.out.println(gm.novaComanda(mesa));break;
 			case 2:System.out.println(gm.encerrarComanda(mesa));break;
-			case 3:System.out.println(gm.fazerPedido(mesa, new Pedido(quantidade, produtos[produto]), c));break;
+			case 3:System.out.println(gm.fazerPedido(mesa, new Pedido(quantidade, gMenu.EscolherProduto(produto)), c));break;
 			case 4:System.out.println(gm.excluirPedido(mesa, numeroPedido, c));break;
-			case 5:System.out.println(gm.modificarPedido(mesa, new Pedido(quantidade, produtos[produto]), numeroPedido, c));break;
+			case 5:System.out.println(gm.modificarPedido(mesa, new Pedido(quantidade, gMenu.EscolherProduto(produto)), numeroPedido, c));break;
 			case 6:System.out.println(gm.verPedidos(mesa));break;
 			case 7:System.out.println(c.atender(numeroPedido, gm));break;
 			case 8:System.out.println(c.visualizarPedidos());break;

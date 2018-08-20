@@ -29,7 +29,7 @@ public class GerenciaMesa {
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean fazerPedido(int mesa, Pedido p, Cozinha c) {
-		if(buscar(mesa)!=-1) {                                              
+		if(buscar(mesa)!=-1 && p.getProduto()!=null) {                                              
 			c.addPedido(p); // adiciona à cozinha                            
 			return mesas.get(buscar(mesa)).addPedido(p);
 		}
