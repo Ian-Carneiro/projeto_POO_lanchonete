@@ -11,6 +11,8 @@ public class GerenciaMenu {
 	
 	//buscar o indice do produto na lista pelo seu codigo
 	int buscarProduto(int codigo) {
+		if(produtos.isEmpty())
+			return -1;
 		for(int i = 0; i<produtos.size();i++) {
 			if(produtos.get(i).getCodigo() == codigo) {
 				return i;
