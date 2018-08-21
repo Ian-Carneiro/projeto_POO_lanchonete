@@ -11,9 +11,11 @@ public class GerenciaUsuario {
 	}
 	
 	public boolean criarNovaConta(Usuario usuario) {
-//		se a funcao de adicionarlogin retornar true o usuario nao existe e pode ser adicionado
-		if(Autenticar.adicionarLogin(usuario.getEmail(), usuario.getSenha())) {
-			return usuarios.add(usuario);
+		if(buscarUsuario(usuario.getEmail())==null) {//verifica se ja nao existe o usuario
+	//		se a funcao de adicionarlogin retornar true o usuario nao existe e pode ser adicionado
+			if(Autenticar.adicionarLogin(usuario.getEmail(), usuario.getSenha())) {
+				return usuarios.add(usuario);
+			}
 		}
 		return false;		
 	}
