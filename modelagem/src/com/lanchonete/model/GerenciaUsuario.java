@@ -1,5 +1,6 @@
 package com.lanchonete.model;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ public class GerenciaUsuario {
 	
 	public GerenciaUsuario() {
 		usuarios = new HashMap<>();
+		adicionarLogin(new Usuario("111.111.111-11", "master", "master@gmail.com", "123", "9999999999", LocalDate.of(2018, 1, 1), Setor.ATENDIMENTO));
+		//login master
 	}
 	
 	public boolean adicionarLogin(Usuario usuario) {
