@@ -1,62 +1,55 @@
 package com.lanchonete.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GerenciaUsuario {
-	private List<Usuario> usuarios;
+	private Map<String, Usuario> usuarios;
 	
 	public GerenciaUsuario() {
-		usuarios = new ArrayList<>();
+		usuarios = new HashMap<>();
 	}
 	
-	public boolean criarNovaConta(Usuario usuario) {
+	public boolean adicionarLogin(Usuario usuario) {
 		if(buscarUsuario(usuario.getEmail())==null) {//verifica se ja nao existe o usuario
-	//		se a funcao de adicionarlogin retornar true o usuario nao existe e pode ser adicionado
-			if(Autenticar.adicionarLogin(usuario.getEmail(), usuario.getSenha())) {
-				return usuarios.add(usuario);
-			}
+			usuarios.put(usuario.getEmail(), usuario);
+			return true;
 		}
 		return false;		
 	}
 	
-	public boolean excluirUsuario(String email) {
+	public boolean removerLogin(String email) {
 		Usuario u = buscarUsuario(email);
 		if(u!=null) {//verifica se o usuario ta cadastrasdo: evitando um remove(null)
-			if(Autenticar.removerLogin(u.getEmail(), u.getSenha()))//remove o login do usuario que sera removido
-				return usuarios.remove(buscarUsuario(email));//remove o usuario
+			return usuarios.remove(email, u);//remove o usuario encontrado a partir da chave passada
 		}
 		return false;
 	}
 	
+	//recebe um email por fora porque se for buscar pelo email do usuario(usuario editado) passado
+	//pode acontecer do email dele ter sido mudado: Busca pelo email antigo
 	public boolean editarUsuario(String email, Usuario usuario) {
 		if(buscarUsuario(email)!=null) {//verifica se so usuario que vai ser editado existe
-			excluirUsuario(email);//apaga o usuario antigo
-			return criarNovaConta(usuario);//adiciona o usuario editado
+			removerLogin(email);//apaga o usuario antigo
+			return adicionarLogin(usuario);//adiciona o usuario editado
 		}
 		return false;
 	}
 	
-	public boolean autenticarUsuario(String email) {
+	public boolean isAutenticado(String email, String senha) {
 		Usuario u = buscarUsuario(email);
 		if(u!=null) {//verifica se o usuario ta cadastrado
-			if(Autenticar.isAutenticado(u.getEmail(), u.getSenha()))//autentica usuario
-				return true;
+			if(u.getSenha().equals(senha))//verifica se a senha passada e igual a senha do usuario encontrado com o email
+				return true;//senhas iguais: autenticado
 		}
 		return false;
 	}
 	
-//	busca o funcionario pelo email retorna null ou o usuario
+//	busca o funcionario pelo email(chave) retorna null ou o usuario
 	public Usuario buscarUsuario(String email) {
 		if(usuarios.isEmpty())
 			return null;
-		for(Usuario u : usuarios) {
-			if(u.getEmail() == email)
-				return u;
-		}
-		return null;
+		return usuarios.get(email);
 	}
-	
-	
-	
+
 }
