@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"com.lanchonete.control","l":"GerenciaMesa"}]
