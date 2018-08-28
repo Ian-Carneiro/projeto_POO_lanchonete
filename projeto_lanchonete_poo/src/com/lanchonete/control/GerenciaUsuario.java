@@ -1,21 +1,33 @@
 package com.lanchonete.control;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.lanchonete.model.Setor;
 import com.lanchonete.model.Usuario;
+
+/**
+ * A classe GerenciaUsuario possui métodos para criar, listar, atualizar e deletar os dados de um usuário do sistema, 
+ * com isto é possível garantir a autenticidade do usuário.
+ * @author Leanderson
+ * @since 1.10
+ * @see java.util.HashMap
+ * @see com.lanchonete.model.Usuario
+ * @version 1.0
+ * */
 
 public class GerenciaUsuario {
 	private Map<String, Usuario> usuarios;
-	
+	/**
+	 * Inicializa a estrutura HashMap sem conter valores. 
+	 * */
 	public GerenciaUsuario() {
 		usuarios = new HashMap<>();
-		adicionarLogin(new Usuario("111.111.111-11", "master", "master@gmail.com", "123", "9999999999", LocalDate.of(2018, 1, 1), Setor.ATENDIMENTO));
-		//login master
 	}
-	
+	/**
+	 * Realiza o cadastro do usuário no sistema, sem permitir repetições, definindo como chave o E-mail do usuário.
+	 * @param usuario o usuario que será cadastrado no sistema.
+	 * @return true ou false.  
+	 * */
 	public boolean adicionarLogin(Usuario usuario) {
 		if(buscarUsuario(usuario.getEmail())==null) {//verifica se ja nao existe o usuario
 			usuarios.put(usuario.getEmail(), usuario);
@@ -23,7 +35,11 @@ public class GerenciaUsuario {
 		}
 		return false;		
 	}
-	
+	/**
+	 * Remove o cadastro do usuário através de sua chave(e-mail).
+	 * @param email o e-mail do usuário a ser removido do sistema.
+	 * @return true ou false.
+	 * */
 	public boolean removerLogin(String email) {
 		Usuario u = buscarUsuario(email);
 		if(u!=null) {//verifica se o usuario ta cadastrasdo: evitando um remove(null)
@@ -31,7 +47,12 @@ public class GerenciaUsuario {
 		}
 		return false;
 	}
-	
+	/**
+	 * Edita o usuário que possui um determinado e-mail.
+	 * @param email o e-mail utilizado para identificação do usuário
+	 * @param usuario será utilizado para atualização do usuário.
+	 * @return true ou false
+	 * */
 	//recebe um email por fora porque se for buscar pelo email do usuario(usuario editado) passado
 	//pode acontecer do email dele ter sido mudado: Busca pelo email antigo
 	public boolean editarUsuario(String email, Usuario usuario) {
@@ -41,7 +62,12 @@ public class GerenciaUsuario {
 		}
 		return false;
 	}
-	
+	/**
+	 * Verifica se um determinado usuário é cadastrado ou não.
+	 * @param email o e-mail utilizado para identificação do usuário
+	 * @param senha a senha utilizada para autenticação do login.
+	 * @return true ou false
+	 * */
 	public boolean isAutenticado(String email, String senha) {
 		Usuario u = buscarUsuario(email);
 		if(u!=null) {//verifica se o usuario ta cadastrado
@@ -51,8 +77,9 @@ public class GerenciaUsuario {
 		return false;
 	}
 	
+
 //	busca o funcionario pelo email(chave) retorna null ou o usuario
-	public Usuario buscarUsuario(String email) {
+	private Usuario buscarUsuario(String email) {
 		if(usuarios.isEmpty())
 			return null;
 		return usuarios.get(email);
