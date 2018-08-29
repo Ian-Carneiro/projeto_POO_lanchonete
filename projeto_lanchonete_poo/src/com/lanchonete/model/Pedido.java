@@ -2,6 +2,14 @@ package com.lanchonete.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+/**
+ * Classe que modela um Pedido.
+ * @author Leanderson
+ * @since 1.10
+ * @see com.lanchonete.control.GerenciaMenu
+ * @version 1.0
+ **/
 public class Pedido {
 	private int quantidade;
 	private Produto produto;
@@ -11,6 +19,12 @@ public class Pedido {
 	private final LocalDate data;
 	private final LocalTime hora;
 	private boolean atendido;
+	
+	/**
+	 * Inicia so valores do Pedido
+	 * @param quantidade recebe a quantidade de produtos deste pedido.
+	 * @param produto recebe o produto deste pedido.
+	 **/
 	public Pedido(int quantidade, Produto produto) {
 		atendido = false;
 		data = LocalDate.now();
@@ -49,12 +63,21 @@ public class Pedido {
 	public void mudarStatus() {
 		atendido = true;
 	}
+	
+	/**
+	 * Retorna o valor total do pedido. A multiplicação do preçõ por unidade vezes a quantidade de produtos.
+	 **/
 	public float getValorTotal() {
 		return produto.getPreco() * quantidade;  //retorna a multiplicaÃ§Ã£o do preÃ§o unitÃ¡rio do produto pela quantidade de produtos pedidos
 	}
 	public Produto getProduto() {
 		return produto;
 	}
+	
+	/**
+	 * Retorna o toString do Pedido
+	 * @return String todas as informações do pedido.
+	 **/
 	@Override
 	public String toString() {
 		String s = isAtendido()? "Atendido":"Ã‘ atendido";
