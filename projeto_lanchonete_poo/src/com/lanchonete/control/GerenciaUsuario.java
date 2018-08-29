@@ -6,9 +6,10 @@ import java.util.Map;
 import com.lanchonete.model.Usuario;
 
 /**
- * A classe GerenciaUsuario possui métodos para criar, listar, atualizar e deletar os dados de um usuário do sistema, 
+ * A classe GerenciaUsuario possui métodos para criar, atualizar e deletar os dados de um usuário do sistema, 
  * com isto é possível garantir a autenticidade do usuário.
  * @author Leanderson
+ * @author Ian
  * @since 1.10
  * @see java.util.HashMap
  * @see com.lanchonete.model.Usuario
