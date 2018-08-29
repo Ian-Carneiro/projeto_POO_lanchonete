@@ -9,8 +9,7 @@ import com.lanchonete.model.Pedido;
 /**
  * Classe que controla as mesas da Lanchonete
  * @author Ian
- * @author Leanderson
- * @since 1.8
+ * @since 1.10
  * @see Comanda
  * @see Gerencia
  * @see Pedido
