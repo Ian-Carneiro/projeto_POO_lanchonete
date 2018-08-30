@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import com.lanchonete.model.Produto;
 /**
  * A classe GerenciaMenu possui métodos para criar, ler, atualizar e deletar produtos de um cardápio.
- * @Leanderson
- * @author Ian
+ * @author Leanderson
  * @since 1.10
  * @see java.util.ArrayList
  * @see com.lanchonete.model.Produto

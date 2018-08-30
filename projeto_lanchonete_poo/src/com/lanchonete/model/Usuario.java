@@ -1,5 +1,12 @@
 package com.lanchonete.model;
 import java.time.LocalDate;
+/**
+ * A classe Usuario modela a entidade usuário.
+ * @author Ian
+ * @see GerenciaUsuario
+ * @since 1.10
+ * @version 1.0
+ * */
 public class Usuario {
 	private String cpf;
 	private String nome;
@@ -8,6 +15,16 @@ public class Usuario {
 	private String telefone;
 	private LocalDate nascimento;
 	private Setor setor;
+	/**
+	 * Inicializa os atributos do Usuário
+	 * @param cpf o CPF do usuário.
+	 * @param nome o nome do usuário.
+	 * @param email o E-mail do usuário.
+	 * @param senha a senha do login do usuário.
+	 * @param telefone o número do telefone do usuário.
+	 * @param nascimento a data de nascimento do usuário.
+	 * @param setor o setor em que o usuário trabalha.
+	 * */
 	public Usuario(String cpf, String nome, String email, String senha, String telefone, LocalDate nascimento, Setor setor) {
 		this.cpf = cpf;
 		this.nome = nome;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe que modela uma mesa(Comanda) na aplicação.
+ * Classe que modela uma mesa(Comanda) na aplicaÃ§Ã£o.
  * @author Leanderson
  * @since 1.10
  * @see com.lanchonete.control.GerenciaMesa
@@ -19,7 +19,7 @@ public class Comanda {
 	
 	/**
 	 * Inicia os valores da mesa(Comanda).
-	 * @param mesa recebe o valor <b>único</b> da nova mesa que será criada.
+	 * @param mesa recebe o valor <b>ï¿½nico</b> da nova mesa que serï¿½ criada.
 	 **/
 	public Comanda(int mesa) {
 		numeroComanda = ++id;
@@ -38,9 +38,9 @@ public class Comanda {
 	}
 	
 	/**
-	 * Busca o pedido pelo seu número <b>único</b> na mesa.
-	 * @param numeroPedido recebe o número <b>único</b> do pedido.
-	 * @return O indice do pedido, >= 0 caso seja encontrado ou -1 caso não seja encontrado.
+	 * Busca o pedido pelo seu nï¿½mero <b>ï¿½nico</b> na mesa.
+	 * @param numeroPedido recebe o nï¿½mero <b>ï¿½nico</b> do pedido.
+	 * @return O indice do pedido, >= 0 caso seja encontrado ou -1 caso nï¿½o seja encontrado.
 	 **/
 	public int buscarPedido(int numeroPedido) {// busca um pedido pelo seu numero na comanda retornando o indice da lista(comanda)
 		if(!comanda.isEmpty()) {
@@ -55,8 +55,8 @@ public class Comanda {
 	
 	/**
 	 * Adiciona um pedido a mesa.
-	 * @param p recebe o novo pedido que será adicionado na mesa.
-	 * @return true caso o pedido seja adicionado ou false caso não seja adicionado.
+	 * @param p recebe o novo pedido que serï¿½ adicionado na mesa.
+	 * @return true caso o pedido seja adicionado ou false caso nï¿½o seja adicionado.
 	 **/
 	public boolean addPedido(Pedido p) {
 		p.setMesa(mesa);//define o numero da mesa do pedido(que Ã© o mesmo da comanda) 
@@ -65,8 +65,8 @@ public class Comanda {
 	
 	/**
 	 * Remove um pedido da mesa.
-	 * @param numeroPedido recebe o número <b>único</b> do pedido que será removido
-	 * @return true caso seja removido o pedido ou false caso o pedido não seja removido.
+	 * @param numeroPedido recebe o nï¿½mero <b>ï¿½nico</b> do pedido que serï¿½ removido
+	 * @return true caso seja removido o pedido ou false caso o pedido nï¿½o seja removido.
 	 **/
 	public boolean removePedido(int numeroPedido) {
 		if(comanda.remove(buscarPedido(numeroPedido))!=null) {
@@ -76,8 +76,8 @@ public class Comanda {
 	}
 	
 	/**
-	 * Calcula o valor total da comanda fazendo o somatório do valor total de todos os pedidos.
-	 * @return O valor total do somatório.
+	 * Calcula o valor total da comanda fazendo o somatï¿½rio do valor total de todos os pedidos.
+	 * @return O valor total do somatï¿½rio.
 	 **/
 	public float valorTotal() {//valor total da comanda
 		float total = 0;
@@ -88,16 +88,16 @@ public class Comanda {
 	}
 	
 	/**
-	 * Retorna o pedido com o número <b>único</b> igual ao que foi passado, caso exista.
-	 * @param numeroPedido recebe o número <b>único</b> do pedido que será removido.
-	 * @return O pedido encontrado, caso não existe retorna null.
+	 * Retorna o pedido com o nï¿½mero <b>ï¿½nico</b> igual ao que foi passado, caso exista.
+	 * @param numeroPedido recebe o nï¿½mero <b>ï¿½nico</b> do pedido que serï¿½ removido.
+	 * @return O pedido encontrado, caso nï¿½o existe retorna null.
 	 **/
 	public Pedido getPedido(int numeroPedido) {// retorna um pedido especÃ­fico da comanda (relaciona esta classe com GerenciaComanda)
 		return comanda.get(buscarPedido(numeroPedido));
 	}
 	
 	/**
-	 * Retorna a lista de Pedidos já criados.
+	 * Retorna a lista de Pedidos jï¿½ criados.
 	 * @return A lista de pedidos.
 	 **/
 	public List<Pedido> getListaPedidos(){// retorna uma lista de todos os pedidos da comanda (relaciona esta classe com GerenciaComanda)
@@ -106,7 +106,7 @@ public class Comanda {
 	
 	/**
 	 * Retorna o toString da classe pedido
-	 * @return String das informções da lista de pedidos.
+	 * @return String das informï¿½ï¿½es da lista de pedidos.
 	 **/
 	@Override
 	public String toString() {

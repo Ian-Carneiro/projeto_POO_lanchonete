@@ -16,7 +16,7 @@ public class App {
 		GerenciaMenu gMenu = new GerenciaMenu();
 		GerenciaUsuario gu = new GerenciaUsuario();
 
-//-------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------Para teste------------------------------------------------------------------------------------------------------------------
 		gMenu.adicionarProduto(new Produto(001, "Pão", "é um Pão", 0.50f));
 		gMenu.adicionarProduto(new Produto(002, "Café", "é um Café", 0.30f));
 		gMenu.adicionarProduto(new Produto(003, "Batata Frita", "são Batatas Fritas", 3.0f));
