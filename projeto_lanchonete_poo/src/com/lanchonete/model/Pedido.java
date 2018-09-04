@@ -65,7 +65,7 @@ public class Pedido {
 	}
 	
 	/**
-	 * Retorna o valor total do pedido. A multiplicaÁ„o do preÁı por unidade vezes a quantidade de produtos.
+	 * Retorna o valor total do pedido. A multipli√ß√£oo do pre√ßo por unidade vezes a quantidade de produtos.
 	 **/
 	public float getValorTotal() {
 		return produto.getPreco() * quantidade;  //retorna a multiplica√ß√£o do pre√ßo unit√°rio do produto pela quantidade de produtos pedidos
@@ -76,7 +76,7 @@ public class Pedido {
 	
 	/**
 	 * Retorna o toString do Pedido
-	 * @return String todas as informaÁıes do pedido.
+	 * @return String todas as informa√ß√µes do pedido.
 	 **/
 	@Override
 	public String toString() {

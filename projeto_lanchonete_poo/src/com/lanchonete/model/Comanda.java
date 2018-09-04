@@ -19,7 +19,7 @@ public class Comanda {
 	
 	/**
 	 * Inicia os valores da mesa(Comanda).
-	 * @param mesa recebe o valor <b>�nico</b> da nova mesa que ser� criada.
+	 * @param mesa recebe o valor <b>unico</b> da nova mesa que sera criada.
 	 **/
 	public Comanda(int mesa) {
 		numeroComanda = ++id;
@@ -38,9 +38,9 @@ public class Comanda {
 	}
 	
 	/**
-	 * Busca o pedido pelo seu n�mero <b>�nico</b> na mesa.
-	 * @param numeroPedido recebe o n�mero <b>�nico</b> do pedido.
-	 * @return O indice do pedido, >= 0 caso seja encontrado ou -1 caso n�o seja encontrado.
+	 * Busca o pedido pelo seu numero <b>unico</b> na mesa.
+	 * @param numeroPedido recebe o numero <b>unico</b> do pedido.
+	 * @return O indice do pedido, >= 0 caso seja encontrado ou -1 caso nao seja encontrado.
 	 **/
 	public int buscarPedido(int numeroPedido) {// busca um pedido pelo seu numero na comanda retornando o indice da lista(comanda)
 		if(!comanda.isEmpty()) {
@@ -55,8 +55,8 @@ public class Comanda {
 	
 	/**
 	 * Adiciona um pedido a mesa.
-	 * @param p recebe o novo pedido que ser� adicionado na mesa.
-	 * @return true caso o pedido seja adicionado ou false caso n�o seja adicionado.
+	 * @param p recebe o novo pedido que sera adicionado na mesa.
+	 * @return true caso o pedido seja adicionado ou false caso nao seja adicionado.
 	 **/
 	public boolean addPedido(Pedido p) {
 		p.setMesa(mesa);//define o numero da mesa do pedido(que é o mesmo da comanda) 
@@ -65,8 +65,8 @@ public class Comanda {
 	
 	/**
 	 * Remove um pedido da mesa.
-	 * @param numeroPedido recebe o n�mero <b>�nico</b> do pedido que ser� removido
-	 * @return true caso seja removido o pedido ou false caso o pedido n�o seja removido.
+	 * @param numeroPedido recebe o numero <b>unico</b> do pedido que seru removido
+	 * @return true caso seja removido o pedido ou false caso o pedido nuo seja removido.
 	 **/
 	public boolean removePedido(int numeroPedido) {
 		if(comanda.remove(buscarPedido(numeroPedido))!=null) {
@@ -76,8 +76,8 @@ public class Comanda {
 	}
 	
 	/**
-	 * Calcula o valor total da comanda fazendo o somat�rio do valor total de todos os pedidos.
-	 * @return O valor total do somat�rio.
+	 * Calcula o valor total da comanda fazendo o somatorio do valor total de todos os pedidos.
+	 * @return O valor total do somatorio.
 	 **/
 	public float valorTotal() {//valor total da comanda
 		float total = 0;
@@ -88,16 +88,16 @@ public class Comanda {
 	}
 	
 	/**
-	 * Retorna o pedido com o n�mero <b>�nico</b> igual ao que foi passado, caso exista.
-	 * @param numeroPedido recebe o n�mero <b>�nico</b> do pedido que ser� removido.
-	 * @return O pedido encontrado, caso n�o existe retorna null.
+	 * Retorna o pedido com o numero <b>unico</b> igual ao que foi passado, caso exista.
+	 * @param numeroPedido recebe o numero <b>unico</b> do pedido que sera removido.
+	 * @return O pedido encontrado, caso nao existe retorna null.
 	 **/
 	public Pedido getPedido(int numeroPedido) {// retorna um pedido específico da comanda (relaciona esta classe com GerenciaComanda)
 		return comanda.get(buscarPedido(numeroPedido));
 	}
 	
 	/**
-	 * Retorna a lista de Pedidos j� criados.
+	 * Retorna a lista de Pedidos ja criados.
 	 * @return A lista de pedidos.
 	 **/
 	public List<Pedido> getListaPedidos(){// retorna uma lista de todos os pedidos da comanda (relaciona esta classe com GerenciaComanda)
@@ -106,7 +106,7 @@ public class Comanda {
 	
 	/**
 	 * Retorna o toString da classe pedido
-	 * @return String das inform��es da lista de pedidos.
+	 * @return String das informcoes da lista de pedidos.
 	 **/
 	@Override
 	public String toString() {
