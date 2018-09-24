@@ -62,10 +62,15 @@ public class Pedido {
 	}
 	public void mudarStatus() {
 		atendido = true;
+	}	
+	public int getQuantidade() {
+		return quantidade;
 	}
-	
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
 	/**
-	 * Retorna o valor total do pedido. A multiplicação do preçõ por unidade vezes a quantidade de produtos.
+	 * Retorna o valor total do pedido. A multiplicaï¿½ï¿½o do preï¿½ï¿½ por unidade vezes a quantidade de produtos.
 	 **/
 	public float getValorTotal() {
 		return produto.getPreco() * quantidade;  //retorna a multiplicaÃ§Ã£o do preÃ§o unitÃ¡rio do produto pela quantidade de produtos pedidos
@@ -76,7 +81,7 @@ public class Pedido {
 	
 	/**
 	 * Retorna o toString do Pedido
-	 * @return String todas as informações do pedido.
+	 * @return String todas as informaï¿½ï¿½es do pedido.
 	 **/
 	@Override
 	public String toString() {

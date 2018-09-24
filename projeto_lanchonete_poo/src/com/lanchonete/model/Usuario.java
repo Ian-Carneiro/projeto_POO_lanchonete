@@ -14,7 +14,7 @@ public class Usuario {
 	private String senha;
 	private String telefone;
 	private LocalDate nascimento;
-	private Setor setor;
+	private String setor;
 	/**
 	 * Inicializa os atributos do Usuário
 	 * @param cpf o CPF do usuário.
@@ -23,9 +23,9 @@ public class Usuario {
 	 * @param senha a senha do login do usuário.
 	 * @param telefone o número do telefone do usuário.
 	 * @param nascimento a data de nascimento do usuário.
-	 * @param setor o setor em que o usuário trabalha.
+	 * @param s o setor em que o usuário trabalha.
 	 * */
-	public Usuario(String cpf, String nome, String email, String senha, String telefone, LocalDate nascimento, Setor setor) {
+	public Usuario(String cpf, String nome, String email, String senha, String telefone, LocalDate nascimento, String setor) {
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
@@ -65,9 +65,9 @@ public class Usuario {
 		this.nascimento = nascimento;
 	}
 	public String getSetor() {
-		return setor.name();
+		return setor;
 	}
-	public void setSetor(Setor setor) {
+	public void setSetor(String setor) {
 		this.setor = setor;
 	}
 	public String getSenha() {

@@ -13,19 +13,18 @@ import com.lanchonete.control.GerenciaMesa;
  * @version 1.0 
  * */
 public class Cozinha {
-	private List<Pedido> pedidos;
+	
 	/**
 	 * Inicializa a estrutura ArrayList sem nenhum dado.
 	 * */
-	public Cozinha(){
-		pedidos = new ArrayList<>();
-	}
+	private static List<Pedido> pedidos = new ArrayList<>();
+
 	/**
 	 * Adiciona um pedido a lista.
 	 * @param p o pedido que será adicionado na lista.
 	 * @return true ou false.
 	 * */
-	public boolean addPedido(Pedido p) {
+	public static boolean addPedido(Pedido p) {
 		return pedidos.add(p);
 	}
 	/**
@@ -33,12 +32,12 @@ public class Cozinha {
 	 * @param numeroPedido o número do pedido.
 	 * @return true ou false.
 	 * */
-	public boolean removerPedido(int numeroPedido) {// relaciona esta classe com GerenciaMesa
+	public static boolean removerPedido(int numeroPedido) {// relaciona esta classe com GerenciaMesa
 		// não precisa de verificação porque ela é feita na classe GerenciaMesa(só ela usará esta função) 
 		return pedidos.remove(pedidos.get(buscar(numeroPedido)));// pedidos.get(buscar(numeroPedido) retorna um objeto em uma determinada posição que é removido da lista 
 	}
 	
-	private int buscar(int numeroPedido) {
+	private static int buscar(int numeroPedido) {
 		if(!pedidos.isEmpty()) {
 			for(int i = 0; i<pedidos.size(); i++) {
 				if(pedidos.get(i).getNumeroPedido() == numeroPedido) {
@@ -54,23 +53,27 @@ public class Cozinha {
 	 * @param gm o objeto que está gerenciando a mesa que fez o pedido.
 	 * @return true ou false.
 	 * */
-	public boolean atender(int numeroPedido, GerenciaMesa gm) {
+	public static boolean atender(int numeroPedido) {
 		if(buscar(numeroPedido)==-1) {
 			return false;
 		}
 		int mesa = pedidos.get(buscar(numeroPedido)).getMesa();//descobre a mesa de um determinado pedido
-		gm.getComanda(mesa).getPedido(numeroPedido).mudarStatus();// muda o status de não atendido para atendido
+		GerenciaMesa.getComanda(mesa).getPedido(numeroPedido).mudarStatus();// muda o status de não atendido para atendido
 		return pedidos.remove(pedidos.get(buscar(numeroPedido)));//remove da cozinha
 	}
 	/**
 	 * Visualiza todos os pedidos não atendidos pela cozinha.
 	 * @return String contendo todas as informações dos pedidos ou nenhuma.
 	 * */
-	public String visualizarPedidos() {
+	public static String visualizarPedidos() {
 		String s = "";
 		for(Pedido p : pedidos) {
 			s+="Mesa:"+ p.getMesa()+ "           N°:" +p.getNumeroPedido() + "\n" + p.toString()+"______________________________\n";
 		}
 		return s;
+	}
+	
+	public static List<Pedido> listar(){
+		return pedidos;
 	}
 }

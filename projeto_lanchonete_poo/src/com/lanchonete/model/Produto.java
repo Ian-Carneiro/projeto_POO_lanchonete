@@ -43,7 +43,7 @@ public class Produto {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public float getPreco() {
+	public Float getPreco() {
 		return preco;
 	}
 	public void setPreco(float preco) {
