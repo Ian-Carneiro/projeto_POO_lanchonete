@@ -1,17 +1,12 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
-import com.lanchonete.control.GerenciaMenu;
 import com.lanchonete.control.GerenciaMesa;
 import com.lanchonete.model.Pedido;
-import com.lanchonete.model.Produto;
 
 import javax.swing.JList;
 import javax.swing.JLabel;

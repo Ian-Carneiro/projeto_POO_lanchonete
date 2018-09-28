@@ -1,27 +1,14 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
 import javax.swing.JButton;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
-import java.awt.Dimension;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-import com.lanchonete.model.Usuario;
-
-import javax.swing.BoxLayout;
 
 public class TelaPrincipal extends JFrame {
 
@@ -31,7 +18,6 @@ public class TelaPrincipal extends JFrame {
 	private TelaCardapio telaCardapio;
 	private TelaMesa telaMesa;
 	private TelaCozinha telaCozinha;
-	private TelaGerencia telaGerencia;
 	/**
 	 * Create the frame.
 	 * @param usuario 

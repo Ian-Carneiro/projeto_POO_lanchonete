@@ -1,17 +1,11 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.InputVerifier;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
 
 import com.lanchonete.control.GerenciaMenu;
 import com.lanchonete.model.Produto;
-import com.lanchonete.model.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,9 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
-import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
@@ -81,7 +73,7 @@ public class TelaCardapio extends JFrame {
 		contentPane.add(tfPreco);
 		tfPreco.setColumns(10);
 		
-		JSpinner spinnerCodigo = new JSpinner();
+		spinnerCodigo = new JSpinner();
 		spinnerCodigo.setModel(new SpinnerNumberModel(1, 1, null, 1));
 		spinnerCodigo.setBounds(107, 36, 175, 25);
 		contentPane.add(spinnerCodigo);

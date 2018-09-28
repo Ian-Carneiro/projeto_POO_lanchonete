@@ -1,8 +1,5 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,13 +9,11 @@ import com.lanchonete.control.GerenciaMenu;
 import com.lanchonete.control.GerenciaMesa;
 import com.lanchonete.model.Pedido;
 import com.lanchonete.model.Produto;
-import com.lanchonete.model.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -28,12 +23,8 @@ import javax.swing.SpinnerNumberModel;
 public class TelaFazerPedido extends JFrame {
 
 	private JPanel contentPane;
-	private TelaPrincipal telaPrincipal;
 	private TelaMesa telaMesa;
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaFazerPedido() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

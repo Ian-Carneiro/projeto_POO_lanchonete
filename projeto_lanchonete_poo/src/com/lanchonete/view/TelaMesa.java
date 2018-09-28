@@ -1,8 +1,5 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -10,7 +7,6 @@ import javax.swing.border.EmptyBorder;
 import com.lanchonete.control.GerenciaMenu;
 import com.lanchonete.control.GerenciaMesa;
 import com.lanchonete.model.Comanda;
-import com.lanchonete.model.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,9 +24,6 @@ public class TelaMesa extends JFrame {
 	private TelaPrincipal telaPrincipal;
 	private static Integer mesa;
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaMesa() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

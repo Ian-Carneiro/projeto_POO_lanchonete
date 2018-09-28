@@ -1,7 +1,5 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -73,7 +70,6 @@ public class TelaCadastroUsuario extends JFrame {
 		lblEmail.setBounds(11, 72, 84, 15);
 		contentPane.add(lblEmail);
 		
-		JFormattedTextField formattedTextField = null;
 		ftfCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 		ftfCpf.setBounds(101, 11, 338, 22);
 		contentPane.add(ftfCpf);

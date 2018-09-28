@@ -1,12 +1,11 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.text.ParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -50,6 +49,7 @@ public class TelaGerencia extends JFrame {
 		ftfDF.setBounds(270, 12, 113, 25);
 		contentPane.add(ftfDF);
 		
+//		DefaultTableModel
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBounds(12, 44, 426, 154);

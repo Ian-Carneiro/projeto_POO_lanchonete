@@ -1,29 +1,25 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.lanchonete.control.GerenciaMenu;
-import com.lanchonete.control.GerenciaMesa;
+
 import com.lanchonete.control.GerenciaUsuario;
-import com.lanchonete.model.Cozinha;
 import com.lanchonete.model.Usuario;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
-import javax.swing.JDesktopPane;
 
 public class TelaInicial extends JFrame {
 
@@ -33,9 +29,7 @@ public class TelaInicial extends JFrame {
 	private static Usuario usuario;
 	private TelaCadastroUsuario cadastroUsuario;
 	private TelaPrincipal telaPrincipal;
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -49,10 +43,6 @@ public class TelaInicial extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * @param usuario 
-	 */
 	public TelaInicial() {
 		GerenciaUsuario.adicionarLogin(new Usuario("11111111111", "123", "123@outlook.com", "123", "83999999999", LocalDate.now(), "GERENCIA"));
 		setResizable(false);

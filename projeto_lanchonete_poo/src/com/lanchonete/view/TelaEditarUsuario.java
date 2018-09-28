@@ -1,7 +1,5 @@
 package com.lanchonete.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,14 +17,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
-import net.miginfocom.swing.MigLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
 public class TelaEditarUsuario extends JFrame {
-
 	private JPanel contentPane;
 	private JTextField tfNome;
 	private JFormattedTextField ftfCpf;
@@ -34,12 +30,10 @@ public class TelaEditarUsuario extends JFrame {
 	private JPasswordField passwordField;
 	private TelaInicial inicial;
 	private TelaPrincipal telaPrincipal;
-	/**
-	 * Create the frame.
-	 * @param usuario 
-	 * @throws ParseException 
-	 */
-	@SuppressWarnings("unchecked")
+	private JComboBox<String> cbSetor;
+	private JComboBox<String> cbEmail;
+	
+
 	public TelaEditarUsuario() throws ParseException {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,7 +79,7 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(ftfCpf);
 		
 		String[] s1 = {"ATENDIMENTO", "COZINHA", "CAIXA", "GERENCIA"};
-		JComboBox cbSetor = new JComboBox(s1);
+		cbSetor = new JComboBox<>(s1);
 		int i;
 		for(i = 0; i<s1.length; i++) {
 			if(s1[i].equals(TelaInicial.getAltenticado().getSetor())) {
@@ -122,7 +116,7 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(tfEmail);
 		tfEmail.setColumns(10);
 		
-		JComboBox cbEmail = new JComboBox(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
+		cbEmail = new JComboBox<>(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
 		String[] s2 = {"gmail.com", "outlook.com", "email.com"};
 		for(i = 0; i<s2.length; i++) {
 			if(s2[i].equals(partesSenha[1])) {
