@@ -2,6 +2,8 @@
 package com.lanchonete.control;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.lanchonete.model.Produto;
@@ -13,15 +15,17 @@ import com.lanchonete.model.Produto;
  * @see com.lanchonete.model.Produto
  * @version 1.0 
  * */
-public class GerenciaMenu extends DaoListGenerico<Produto> {
+public class GerenciaMenu extends DaoListGenerico {
 	/**
 	 * Inicializa a estrutura ArrayList sem conter valores 
 	 * */
-	private static ArrayList<Produto> produtos = new ArrayList<>();
 	private static File file = new File("Produto");
+	private static ArrayList<Produto> produtos = new ArrayList<>();
+	
 	
 	//buscar o indice do produto na lista pelo seu codigo
-	private static int buscarProduto(int codigo) {
+	private static int buscarProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
+		produtos = (getEstrutura(file));
 		if(produtos.isEmpty())
 			return -1;
 		for(int i = 0; i<produtos.size();i++) {
@@ -34,8 +38,12 @@ public class GerenciaMenu extends DaoListGenerico<Produto> {
 	/**
 	 * Lista todos os produtos contidos no cardápio.
 	 * @return Lista de Produtos ou null. 
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static ArrayList<Produto> listarProdutos(){
+	public static ArrayList<Produto> listarProdutos() throws FileNotFoundException, ClassNotFoundException, IOException{
+		produtos = getEstrutura(file);
 		if(produtos.isEmpty())
 			return null;
 		return produtos;		
@@ -44,8 +52,12 @@ public class GerenciaMenu extends DaoListGenerico<Produto> {
 	 * Seleciona um produto específico pelo seu código.
 	 * @param codigo o código para especificar o produto.
 	 * @return um produto ou null 
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static Produto EscolherProduto(int codigo) {
+	public static Produto EscolherProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
+		produtos = (getEstrutura(file));
 		for(Produto p: produtos) {
 			if(p.getCodigo() == codigo)
 				return p;
@@ -56,22 +68,32 @@ public class GerenciaMenu extends DaoListGenerico<Produto> {
 	 * Adiciona um produto ao menu(cardápio).
 	 * @param produto o produto que será adicionado ao menu.
 	 * @return true ou false.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static boolean adicionarProduto(Produto produto) {
+	public static boolean adicionarProduto(Produto produto) throws FileNotFoundException, ClassNotFoundException, IOException{
 		if(buscarProduto(produto.getCodigo()) >=0 ) {
 			return false;//Produto com codigo ja cadastrado
 		}
-		return produtos.add(produto);
+		produtos.add(produto);
+		push(produtos, file);
+		return true;
 	}
 	/**
 	 * Exclui o produto do menu(cardápio).
 	 * @param codigo o código para especificar o produto que será excluido.
 	 * @return true ou false.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static boolean excluirProduto(int codigo) {
+	public static boolean excluirProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
 		if(buscarProduto(codigo)<0)//verifica se o produto existe
 			return false;
-		return produtos.remove(produtos.get(buscarProduto(codigo)));
+		produtos.remove(produtos.get(buscarProduto(codigo)));
+		push(produtos, file);
+		return true;
 	}
 	
 	/**
@@ -79,8 +101,11 @@ public class GerenciaMenu extends DaoListGenerico<Produto> {
 	 * @param codigo o código para especificar o produto que será editado.
 	 * @param produto o produto que substituirá o atual.
 	 * @return true ou false.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static boolean editarProduto(int codigo, Produto produto) {
+	public static boolean editarProduto(int codigo, Produto produto) throws FileNotFoundException, ClassNotFoundException, IOException {
 		if(buscarProduto(codigo)<0)//verifica se o produto existe para ser editado
 			return false;
 		produto.setCodigo(codigo);//garante que o produto editado(novo produto) tenha o mesmo codigo

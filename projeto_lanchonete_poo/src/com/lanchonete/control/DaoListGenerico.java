@@ -7,22 +7,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 
 
-public class DaoListGenerico<T> {
+public class DaoListGenerico{
 	
-	public ArrayList<T> getEstrutura(File file) throws FileNotFoundException, IOException, ClassNotFoundException{
+	public static<T> T getEstrutura(File file) throws FileNotFoundException, IOException, ClassNotFoundException{
+		
 		if(file.length()>0) {
 			try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(file)) ){
-				return (ArrayList<T>) in.readObject();
+				return (T)in.readObject();
 			}
 		}
-		return new ArrayList<T>();
+		return null;
 	}
-	public void push(List<T> obj, File file) throws FileNotFoundException, IOException {
+	public static<T> void push(T obj, File file) throws FileNotFoundException, IOException {
 		try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))){
 			out.writeObject(obj);
 		}

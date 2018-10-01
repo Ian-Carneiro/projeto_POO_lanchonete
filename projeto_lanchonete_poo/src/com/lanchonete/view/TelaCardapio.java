@@ -13,11 +13,14 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-public class TelaCardapio extends JFrame {
+public class TelaCardapio extends JFrame{
 
 	private JPanel contentPane;
 	private JLabel lblNome;
@@ -80,9 +83,15 @@ public class TelaCardapio extends JFrame {
 		
 		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){
 				
-				Produto p = GerenciaMenu.EscolherProduto((Integer)spinnerCodigo.getValue());
+				Produto p = null;
+				try {
+					p = GerenciaMenu.EscolherProduto((Integer)spinnerCodigo.getValue());
+				} catch (ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				if(p!=null) {
 					tfNome.setText(p.getNome());
 					tpDescricao.setText(p.getDescricao());
@@ -98,14 +107,19 @@ public class TelaCardapio extends JFrame {
 		
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(GerenciaMenu.adicionarProduto(new Produto((Integer)spinnerCodigo.getValue(), tfNome.getText(),
-						tpDescricao.getText(), Float.parseFloat(tfPreco.getText())))) {
-					JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
-					limpaCapos();
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "Produto não cadastrado!");
+			public void actionPerformed(ActionEvent e){
+				try {
+					if(GerenciaMenu.adicionarProduto(new Produto((Integer)spinnerCodigo.getValue(), tfNome.getText(),
+							tpDescricao.getText(), Float.parseFloat(tfPreco.getText())))) {
+						JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+						limpaCapos();
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "Produto não cadastrado!");
+					}
+				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -115,11 +129,16 @@ public class TelaCardapio extends JFrame {
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(GerenciaMenu.excluirProduto((Integer)spinnerCodigo.getValue())) {
-					JOptionPane.showMessageDialog(null, "Produto excluido com sucesso!");
-					limpaCapos();
-				}else {
-					JOptionPane.showMessageDialog(null, "Não houve alteração!");
+				try {
+					if(GerenciaMenu.excluirProduto((Integer)spinnerCodigo.getValue())) {
+						JOptionPane.showMessageDialog(null, "Produto excluido com sucesso!");
+						limpaCapos();
+					}else {
+						JOptionPane.showMessageDialog(null, "Não houve alteração!");
+					}
+				} catch (HeadlessException | ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -129,12 +148,17 @@ public class TelaCardapio extends JFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(GerenciaMenu.editarProduto((Integer)spinnerCodigo.getValue(), new Produto((Integer)spinnerCodigo.getValue(), tfNome.getText(),
-						tpDescricao.getText(), Float.parseFloat(tfPreco.getText())))){
-					JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
-					limpaCapos();
-				}else {
-					JOptionPane.showMessageDialog(null, "Não houve alterações!");
+				try {
+					if(GerenciaMenu.editarProduto((Integer)spinnerCodigo.getValue(), new Produto((Integer)spinnerCodigo.getValue(), tfNome.getText(),
+							tpDescricao.getText(), Float.parseFloat(tfPreco.getText())))){
+						JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso!");
+						limpaCapos();
+					}else {
+						JOptionPane.showMessageDialog(null, "Não houve alterações!");
+					}
+				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
