@@ -1,9 +1,9 @@
-
 package com.lanchonete.control;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.lanchonete.model.Produto;
@@ -15,17 +15,17 @@ import com.lanchonete.model.Produto;
  * @see com.lanchonete.model.Produto
  * @version 1.0 
  * */
-public class GerenciaMenu extends DaoGenerico {
+public class GerenciaMenu extends DaoListGenerico<Produto>{
 	/**
 	 * Inicializa a estrutura ArrayList sem conter valores 
 	 * */
 	private static File file = new File("Produto");
-	private static ArrayList<Produto> produtos = new ArrayList<>();
+	private static ArrayList<Produto> produtos;
 	
 	
 	//buscar o indice do produto na lista pelo seu codigo
 	private static int buscarProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
-		produtos = (getEstrutura(file));
+		produtos = getEstrutura(file);
 		if(produtos.isEmpty())
 			return -1;
 		for(int i = 0; i<produtos.size();i++) {
@@ -92,6 +92,7 @@ public class GerenciaMenu extends DaoGenerico {
 		if(buscarProduto(codigo)<0)//verifica se o produto existe
 			return false;
 		produtos.remove(produtos.get(buscarProduto(codigo)));
+		
 		push(produtos, file);
 		return true;
 	}
