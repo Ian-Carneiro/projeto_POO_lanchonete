@@ -10,8 +10,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
-
-
 public class DaoListGenerico<T>{
 	
 	public static<T> ArrayList<T> getEstrutura(File file) throws FileNotFoundException, IOException, ClassNotFoundException{

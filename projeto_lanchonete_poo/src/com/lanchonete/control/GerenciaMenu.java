@@ -15,12 +15,11 @@ import com.lanchonete.model.Produto;
  * @see com.lanchonete.model.Produto
  * @version 1.0 
  * */
-public class GerenciaMenu extends DaoListGenerico<Produto>{
+public class GerenciaMenu extends DaoListGenerico<Produto> implements Serializable{
 	/**
 	 * Inicializa a estrutura ArrayList sem conter valores 
 	 * */
 	private static File file = new File("Produto");
-	
 	
 	//buscar o indice do produto na lista pelo seu codigo
 	private static int buscarProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
