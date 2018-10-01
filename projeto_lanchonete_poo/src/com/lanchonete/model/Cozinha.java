@@ -1,5 +1,8 @@
 package com.lanchonete.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,7 @@ import com.lanchonete.control.GerenciaMesa;
  * @see com.lanchonete.model.Pedido
  * @version 1.0 
  * */
-public class Cozinha {
+public class Cozinha implements Serializable{
 	
 	/**
 	 * Inicializa a estrutura ArrayList sem nenhum dado.
@@ -52,8 +55,11 @@ public class Cozinha {
 	 * @param numeroPedido o número do pedido. 
 	 * @param gm o objeto que está gerenciando a mesa que fez o pedido.
 	 * @return true ou false.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static boolean atender(int numeroPedido) {
+	public static boolean atender(int numeroPedido) throws FileNotFoundException, ClassNotFoundException, IOException {
 		if(buscar(numeroPedido)==-1) {
 			return false;
 		}

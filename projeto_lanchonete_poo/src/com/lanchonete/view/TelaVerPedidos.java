@@ -14,6 +14,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class TelaVerPedidos extends JFrame {
@@ -25,8 +27,11 @@ public class TelaVerPedidos extends JFrame {
 	private static Integer numeroPedido;
 	/**
 	 * Create the frame.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public TelaVerPedidos() {
+	public TelaVerPedidos() throws FileNotFoundException, ClassNotFoundException, IOException {//<<<<<<<<<<<<<<<<<<<<<<<<
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -38,8 +43,10 @@ public class TelaVerPedidos extends JFrame {
 		
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		total = 0f;
+		String isAtendido;
 		for(Pedido p:GerenciaMesa.getComanda(TelaMesa.getMesa()).getListaPedidos()) {
-			listModel.addElement(p.getNumeroPedido()+"-"+p.getQuantidade()+" "+p.getProduto().getNome()+" subtotal: R$ "+p.getValorTotal());
+			isAtendido = p.isAtendido()?"<<< Atendido ":"<<< Não atendido ";
+			listModel.addElement(p.getNumeroPedido()+"-"+p.getQuantidade()+p.getProduto().getNome()+isAtendido+" subtotal: R$ "+p.getValorTotal());
 			total+=p.getProduto().getPreco();
 		}
 		
@@ -78,7 +85,7 @@ public class TelaVerPedidos extends JFrame {
 		btnEditar.setBounds(280, 235, 114, 25);
 		contentPane.add(btnEditar);
 	}
-	public static Pedido getPedido() {
+	public static Pedido getPedido() throws FileNotFoundException, ClassNotFoundException, IOException {
 		return GerenciaMesa.getComanda(TelaMesa.getMesa()).getPedido(numeroPedido);
 	}
 }

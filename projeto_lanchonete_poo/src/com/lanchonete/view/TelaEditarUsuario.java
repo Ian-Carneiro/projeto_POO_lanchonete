@@ -19,6 +19,9 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -116,10 +119,10 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(tfEmail);
 		tfEmail.setColumns(10);
 		
-		cbEmail = new JComboBox<>(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
+		cbEmail = new JComboBox(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
 		String[] s2 = {"gmail.com", "outlook.com", "email.com"};
 		for(i = 0; i<s2.length; i++) {
-			if(s2[i].equals(partesSenha[1])) {
+			if(s2[i].equals(partesSenha[1])) {//ta dando  ArrayIndexOutOfBoundsException
 				break;
 			}
 		}
@@ -165,14 +168,14 @@ public class TelaEditarUsuario extends JFrame {
 		btnExcluir.setBounds(273, 235, 114, 25);
 		contentPane.add(btnExcluir);
 	}
-	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) {
+	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException {
 		if(GerenciaUsuario.editarUsuario(email, usuario)) {
 			JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");
 		}else {
 			JOptionPane.showMessageDialog(null, "Não houve alterações!");
 		}
 	}
-	public void removerUsuarioGerenciaUsuario(String email) {
+	public void removerUsuarioGerenciaUsuario(String email) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException {
 		if(GerenciaUsuario.removerLogin(email)) {
 			JOptionPane.showMessageDialog(null, "Dados do usuário removidos!");
 		}else {

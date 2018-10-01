@@ -1,4 +1,5 @@
 package com.lanchonete.model;
+import java.io.Serializable;
 import java.time.LocalDate;
 /**
  * A classe Usuario modela a entidade usuário.
@@ -7,7 +8,7 @@ import java.time.LocalDate;
  * @since 1.10
  * @version 1.0
  * */
-public class Usuario {
+public class Usuario implements Serializable {
 	private String cpf;
 	private String nome;
 	private String email;

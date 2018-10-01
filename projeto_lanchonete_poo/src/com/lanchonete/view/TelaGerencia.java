@@ -60,6 +60,10 @@ public class TelaGerencia extends JFrame {
 		contentPane.add(label);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnBuscar.setBounds(235, 235, 114, 25);
 		contentPane.add(btnBuscar);
 		

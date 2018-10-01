@@ -119,7 +119,7 @@ public class TelaCardapio extends JFrame{
 					}
 				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Falha na operação de Salvar", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -137,8 +137,7 @@ public class TelaCardapio extends JFrame{
 						JOptionPane.showMessageDialog(null, "Não houve alteração!");
 					}
 				} catch (HeadlessException | ClassNotFoundException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Falha na operação de Excluir", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -157,8 +156,7 @@ public class TelaCardapio extends JFrame{
 						JOptionPane.showMessageDialog(null, "Não houve alterações!");
 					}
 				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Falha na operação de Editar", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

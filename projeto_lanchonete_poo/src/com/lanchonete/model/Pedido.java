@@ -1,5 +1,6 @@
 package com.lanchonete.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -10,7 +11,7 @@ import java.time.LocalTime;
  * @see com.lanchonete.control.GerenciaMenu
  * @version 1.0
  **/
-public class Pedido {
+public class Pedido implements Serializable{
 	private int quantidade;
 	private Produto produto;
 	private static int id;
