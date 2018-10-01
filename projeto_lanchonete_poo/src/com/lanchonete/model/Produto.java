@@ -1,4 +1,7 @@
 package com.lanchonete.model;
+
+import java.io.Serializable;
+
 /**
  * A classe Produto modela a entidade produto.
  * @author Ian
@@ -7,7 +10,7 @@ package com.lanchonete.model;
  * @see com.lanchonete.model.Pedido
  * @version 1.0 
  * */
-public class Produto {
+public class Produto implements Serializable {
  	private int codigo;
  	private String nome;
  	private String descricao;

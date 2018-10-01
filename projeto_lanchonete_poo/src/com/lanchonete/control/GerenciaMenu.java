@@ -1,6 +1,7 @@
 
 package com.lanchonete.control;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.lanchonete.model.Produto;
@@ -12,12 +13,13 @@ import com.lanchonete.model.Produto;
  * @see com.lanchonete.model.Produto
  * @version 1.0 
  * */
-public class GerenciaMenu {
+public class GerenciaMenu extends DaoListGenerico<Produto> {
 	/**
 	 * Inicializa a estrutura ArrayList sem conter valores 
 	 * */
 	private static ArrayList<Produto> produtos = new ArrayList<>();
-
+	private static File file = new File("Produto");
+	
 	//buscar o indice do produto na lista pelo seu codigo
 	private static int buscarProduto(int codigo) {
 		if(produtos.isEmpty())
