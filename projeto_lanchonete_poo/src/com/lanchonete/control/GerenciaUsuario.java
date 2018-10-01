@@ -1,8 +1,12 @@
 package com.lanchonete.control;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lanchonete.dao.DaoMapGenerico;
 import com.lanchonete.model.Usuario;
 
 /**
@@ -15,20 +19,23 @@ import com.lanchonete.model.Usuario;
  * @version 1.0
  * */
 
-public class GerenciaUsuario {
-	/**
-	 * Inicializa a estrutura HashMap sem conter valores. 
-	 * */
-	private static Map<String, Usuario> usuarios = new HashMap<>();
+public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
+	
+	public static File file = new File("Usuario");
 	
 	/**
 	 * Realiza o cadastro do usuário no sistema, sem permitir repetições, definindo como chave o E-mail do usuário.
 	 * @param usuario o usuario que será cadastrado no sistema.
 	 * @return true ou false.  
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static boolean adicionarLogin(Usuario usuario) {
+	public static boolean adicionarLogin(Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException {
+		HashMap<String, Usuario> usuarios = getEstrutura(file);
 		if(buscarUsuario(usuario.getEmail())==null) {//verifica se ja nao existe o usuario
 			usuarios.put(usuario.getEmail(), usuario);
+			push(usuarios, file);
 			return true;
 		}
 		return false;		
@@ -37,11 +44,17 @@ public class GerenciaUsuario {
 	 * Remove o cadastro do usuário através de sua chave(e-mail).
 	 * @param email o e-mail do usuário a ser removido do sistema.
 	 * @return true ou false.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static boolean removerLogin(String email) {
+	public static boolean removerLogin(String email) throws FileNotFoundException, ClassNotFoundException, IOException {
+		HashMap<String, Usuario> usuarios = getEstrutura(file);
 		Usuario u = buscarUsuario(email);
 		if(u!=null) {//verifica se o usuario ta cadastrasdo: evitando um remove(null)
-			return usuarios.remove(email, u);//remove o usuario encontrado a partir da chave passada
+			usuarios.remove(email, u);//remove o usuario encontrado a partir da chave passada
+			push(usuarios, file);
+			return true;
 		}
 		return false;
 	}
@@ -50,10 +63,13 @@ public class GerenciaUsuario {
 	 * @param email o e-mail utilizado para identificação do usuário
 	 * @param usuario será utilizado para atualização do usuário.
 	 * @return true ou false
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
 	//recebe um email por fora porque se for buscar pelo email do usuario(usuario editado) passado
 	//pode acontecer do email dele ter sido mudado: Busca pelo email antigo
-	public static boolean editarUsuario(String email, Usuario usuario) {
+	public static boolean editarUsuario(String email, Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException {
 		if(buscarUsuario(email)!=null) {//verifica se so usuario que vai ser editado existe
 			removerLogin(email);//apaga o usuario antigo
 			return adicionarLogin(usuario);//adiciona o usuario editado
@@ -65,8 +81,11 @@ public class GerenciaUsuario {
 	 * @param email o e-mail utilizado para identificação do usuário
 	 * @param senha a senha utilizada para autenticação do login.
 	 * @return true ou false
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static boolean isAutenticado(String email, String senha) {
+	public static boolean isAutenticado(String email, String senha) throws FileNotFoundException, ClassNotFoundException, IOException {
 		Usuario u = buscarUsuario(email);
 		if(u!=null) {//verifica se o usuario ta cadastrado
 			if(u.getSenha().equals(senha))//verifica se a senha passada e igual a senha do usuario encontrado com o email
@@ -80,8 +99,12 @@ public class GerenciaUsuario {
 	 * Busca um usuário pelo e-mail 
 	 * @param email o e-mail utilizado na busca do usuário
 	 * @return Usuário ou null 
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static Usuario buscarUsuario(String email) {
+	public static Usuario buscarUsuario(String email) throws FileNotFoundException, ClassNotFoundException, IOException {
+		HashMap<String, Usuario> usuarios = getEstrutura(file);
 		if(usuarios.isEmpty())
 			return null;
 		return usuarios.get(email);

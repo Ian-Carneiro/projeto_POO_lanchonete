@@ -119,7 +119,7 @@ public class TelaEditarUsuario extends JFrame {
 		cbEmail = new JComboBox<>(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
 		String[] s2 = {"gmail.com", "outlook.com", "email.com"};
 		for(i = 0; i<s2.length; i++) {
-			if(s2[i].equals(partesSenha[1])) {
+			if(s2[i].equals(partesSenha[1])) {//ta dando  ArrayIndexOutOfBoundsException
 				break;
 			}
 		}

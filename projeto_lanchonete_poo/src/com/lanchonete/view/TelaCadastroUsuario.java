@@ -19,6 +19,9 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -119,7 +122,11 @@ public class TelaCadastroUsuario extends JFrame {
 				dispose();
 				inicial = new TelaInicial();
 				inicial.setVisible(true);
-				addUsuarioGerenciaUsuario(usuario);
+				try {
+					addUsuarioGerenciaUsuario(usuario);
+				} catch (HeadlessException | ClassNotFoundException | IOException e) {
+					JOptionPane.showMessageDialog(null, "Falha na operação de Novo Cadastro", "Falha", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnSalvar.setBounds(299, 235, 114, 25);
@@ -136,7 +143,7 @@ public class TelaCadastroUsuario extends JFrame {
 		btnVoltar.setBounds(39, 235, 114, 25);
 		contentPane.add(btnVoltar);
 	}
-	public void addUsuarioGerenciaUsuario(Usuario u) {
+	public void addUsuarioGerenciaUsuario(Usuario u) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException {
 		if(GerenciaUsuario.adicionarLogin(u)) {
 			JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 		}else {

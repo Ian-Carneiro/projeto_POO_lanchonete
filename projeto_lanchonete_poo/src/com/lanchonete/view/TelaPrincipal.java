@@ -53,7 +53,7 @@ public class TelaPrincipal extends JFrame {
 				try {
 					editarUsuario = new TelaEditarUsuario();
 				} catch (ParseException e1) {
-					e1.printStackTrace();
+					System.out.println("Aqui");
 				}
 				editarUsuario.setVisible(true);
 				dispose();

@@ -1,5 +1,7 @@
 package com.lanchonete.model;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,8 +54,11 @@ public class Cozinha {
 	 * @param numeroPedido o número do pedido. 
 	 * @param gm o objeto que está gerenciando a mesa que fez o pedido.
 	 * @return true ou false.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 * */
-	public static boolean atender(int numeroPedido) {
+	public static boolean atender(int numeroPedido) throws FileNotFoundException, ClassNotFoundException, IOException {
 		if(buscar(numeroPedido)==-1) {
 			return false;
 		}

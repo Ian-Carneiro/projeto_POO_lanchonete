@@ -2,6 +2,7 @@ package com.lanchonete.view;
 
 
 import java.awt.EventQueue;
+import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,6 +14,8 @@ import com.lanchonete.model.Usuario;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
@@ -44,7 +47,17 @@ public class TelaInicial extends JFrame {
 	}
 
 	public TelaInicial() {
-		GerenciaUsuario.adicionarLogin(new Usuario("11111111111", "123", "123@outlook.com", "123", "83999999999", LocalDate.now(), "GERENCIA"));
+
+			try {
+				GerenciaUsuario.adicionarLogin(new Usuario("11111111111", "123", "123", "123", "83999999999", LocalDate.now(), "GERENCIA"));
+			} catch (FileNotFoundException e2) {
+				System.out.println("FileNotFoundException");
+			} catch (ClassNotFoundException e2) {
+				System.out.println("ClassNotFoundException");
+			} catch (IOException e2) {
+				System.out.println("IOException");
+			}
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -69,18 +82,32 @@ public class TelaInicial extends JFrame {
 		btnCriar.setBounds(150, 235, 162, 25);
 		contentPane.add(btnCriar);
 		
-		JButton btnAltenticar = new JButton("Altenticar");
+		JButton btnAltenticar = new JButton("Autenticar");
 		btnAltenticar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(GerenciaUsuario.isAutenticado(tfUsuario.getText(), new String(passwordField.getPassword()))) {
-					setVisible(false);
-					usuario = GerenciaUsuario.buscarUsuario(tfUsuario.getText());
-					telaPrincipal = new TelaPrincipal();
-					telaPrincipal.setVisible(true);
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "Não Foi possível altenticar");
+				try {
+					if(GerenciaUsuario.isAutenticado(tfUsuario.getText(), new String(passwordField.getPassword()))) {
+						setVisible(false);
+						usuario = GerenciaUsuario.buscarUsuario(tfUsuario.getText());
+						telaPrincipal = new TelaPrincipal();
+						telaPrincipal.setVisible(true);
+						
+					}else {
+						JOptionPane.showMessageDialog(null, "Não Foi possível altenticar");
+					}
+				} catch (HeadlessException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("HeadlessException");
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("FileNotFoundException");
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("ClassNotFoundException");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("IOException");
 				}
 			}			
 		});

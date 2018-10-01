@@ -1,7 +1,11 @@
 package com.lanchonete.control;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.lanchonete.dao.DaoListGenerico;
 import com.lanchonete.model.Comanda;
 import com.lanchonete.model.Cozinha;
 import com.lanchonete.model.Pedido;
@@ -15,30 +19,38 @@ import com.lanchonete.model.Pedido;
  * @see Pedido
  * @version 1.0
  **/
-public class GerenciaMesa {
-	/**
-	 * Inicia a lista de mesas da classe GerenciaMesa.
-	 **/
-	private static List<Comanda> mesas = new ArrayList<>();
+public class GerenciaMesa extends DaoListGenerico<Comanda>{
+	
+	public static File file = new File("Comanda");
 
 	/**
 	 * Cria uma nova mesa na lista de mesas da classe.
 	 * @param mesa recebe o valor <b>único</b> da nova mesa que será adicionada
 	 * @return true se a mesa for inserida na lista ou false se a mesa não for inserida.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	public static boolean novaComanda(int mesa) {
+	public static boolean novaComanda(int mesa) throws FileNotFoundException, ClassNotFoundException, IOException {
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(buscar(mesa)!=-1) {// verifica se a mesa existe ou não 
 			return false; // não pode ser aberta duas ou mais comandas na mesma mesa
 		}
-		return mesas.add(new Comanda(mesa));		
+		mesas.add(new Comanda(mesa));
+		push(mesas, file);
+		return true;
 	}
 	
 	/**
 	 * Encerra uma comanda removendo-a da lista e adiciona a mesma na Gerencia.
 	 * @param mesa recebe o valor <b>único</b> da mesa que será removida.
 	 * @return true se a mesa for encerrada ou false se a mesa não for encerrada.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	public static boolean encerrarComanda(int mesa) {
+	public static boolean encerrarComanda(int mesa) throws FileNotFoundException, ClassNotFoundException, IOException {
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(buscar(mesa)==-1) {// verifica se a mesa existe ou não
 			return false;// não se pode encerrar uma comanda que não existe
 		}
@@ -47,7 +59,9 @@ public class GerenciaMesa {
 				return false;
 			}
 		}
-		return Gerencia.addParaGerencia(mesas.remove(buscar(mesa)));//  adiciona a comanda para gerenciar 
+		Gerencia.addParaGerencia(mesas.remove(buscar(mesa)));//  adiciona a comanda para gerenciar
+		push(mesas, file);
+		return true;
 	}
 	
 	/**
@@ -56,11 +70,17 @@ public class GerenciaMesa {
 	 * @param p recebe o pedido que será atribuido a comanda
 	 * @param c recebe a cozinha para adicionar o novo pedido a mesma.
 	 * @return true se o pedido for adicionado a comanda e a cozinha ou false se o pedido nao for adicionado.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	public static boolean fazerPedido(int mesa, Pedido p) {
+	public static boolean fazerPedido(int mesa, Pedido p) throws FileNotFoundException, ClassNotFoundException, IOException {
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(buscar(mesa)!=-1 && p.getProduto()!=null) {
 			Cozinha.addPedido(p); // adiciona à cozinha                            
-			return mesas.get(buscar(mesa)).addPedido(p);
+			mesas.get(buscar(mesa)).addPedido(p);
+			push(mesas, file);
+			return true;
 		}
 		Pedido.setContadorPedidos(Pedido.getContadorPedidos()-1);// decrementa o contador de pedido pois o pedido p não pode ser feito então ele não sera contado com os demais
 		return false;
@@ -70,8 +90,12 @@ public class GerenciaMesa {
 	 * Mostra todos os pedidos de uma mesa.
 	 * @param mesa valor <b>único</b> da mesa que contem os pedidos.
 	 * @return String dos pedidos da mesa.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	public static String verPedidos(int mesa) {// retorna uma string com todos os pedidos de uma determinada comanda
+	public static String verPedidos(int mesa) throws FileNotFoundException, ClassNotFoundException, IOException {// retorna uma string com todos os pedidos de uma determinada comanda
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(buscar(mesa)==-1) {
 			return "";
 		}
@@ -84,14 +108,20 @@ public class GerenciaMesa {
 	 * @param numeroPedido recebe o valor <b>único</b> do pedido que será alterado.
 	 * @param c recebe a cozinha que contém o mesmo pedido que será alterado como na mesa.
 	 * @return true caso o pedido seja alterado ou false caso o pedido não tenha sido alterado.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	public static boolean modificarPedido(int mesa, Pedido p, int numeroPedido) {
+	public static boolean modificarPedido(int mesa, Pedido p, int numeroPedido) throws FileNotFoundException, ClassNotFoundException, IOException {
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(ehNumeroPedidoValido(mesa, numeroPedido)) {// verifica se o numero do pedido existe (tambem verifica se a mesa existe) 
 			if(!(mesas.get(buscar(mesa)).getPedido(numeroPedido).isAtendido())) {//verifica se ele já não foi atendido
 				Pedido.setContadorPedidos(Pedido.getContadorPedidos()-1);//pelo fato de ter sido necessário instanciar um novo pedido, so para modificar um já existente, é decrementado o contador de pedidos
 				p.setNumeroPedido(numeroPedido); // o pedido novo, que servirá para modificar o antigo, tem seu numero definido para o do pedido antigo 
 				excluirPedido(mesa, numeroPedido);//o pedido antigo é excluido da comanda e tambem da cozinha
-				return fazerPedido(mesa, p);//o novo pedido é adicionado a comanda e a cozinha, substituindo o antigo 
+				fazerPedido(mesa, p);//o novo pedido é adicionado a comanda e a cozinha, substituindo o antigo
+				push(mesas, file);
+				return true;
 			}
 		}
 		return false;
@@ -103,12 +133,18 @@ public class GerenciaMesa {
 	 * @param numeroPedido recebe o valor <b>único</b> do pedido que será removido.
 	 * @param c recebe a cozinha terá o pedido removido.
 	 * @return true caso o pedido seja removido ou false caso não seja removido.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	public static boolean excluirPedido(int mesa, int numeroPedido) {
+	public static boolean excluirPedido(int mesa, int numeroPedido) throws FileNotFoundException, ClassNotFoundException, IOException {
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(ehNumeroPedidoValido(mesa, numeroPedido)) {// verifica se o numero do pedido existe (tambem verifica se a mesa existe) 
 			if(!(mesas.get(buscar(mesa)).getPedido(numeroPedido).isAtendido())) {//verifica se ele já não foi atendido
 				Cozinha.removerPedido(numeroPedido); //remover da lista da cozinha
-				return mesas.get(buscar(mesa)).removePedido(numeroPedido);
+				mesas.get(buscar(mesa)).removePedido(numeroPedido);
+				push(mesas, file);
+				return true;
 			}
 		}
 		return false;
@@ -118,8 +154,12 @@ public class GerenciaMesa {
 	 * Busca a mesa na lista de mesas e retorna seu indice.
 	 * @param mesa recebe o valor <b>único</b> da mesa que será buscada.
 	 * @return número >= 0 caso a mesa seja encontrasa, sendo o número o indice da mesa, ou -1 caso a mesa não seja encontrada.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	static int buscar(int mesa) {
+	static int buscar(int mesa) throws FileNotFoundException, ClassNotFoundException, IOException {
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(!(mesas.isEmpty())) {// não se pode buscar comandas se elas não existem
 			for(int i = 0;i < mesas.size();i++) {
 				if(mesas.get(i).getMesa() == mesa) {
@@ -134,8 +174,12 @@ public class GerenciaMesa {
 	 * Busca a mesa na lista de mesas e a retorna.
 	 * @param mesa recebe o valor <b>único</b> da mesa que será buscada.
 	 * @return mesa caso seja encontrada ou null caso não exista;
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	public static Comanda getComanda(int mesa){//retorna a (tudo da)comanda de uma mesa especifica (relaciona esta classe com Cozinha) /////não confundir com getListaPedido() que retorna a lista de todos os pedidos da comanda mas não retorna data, numero e mesa 
+	public static Comanda getComanda(int mesa) throws FileNotFoundException, ClassNotFoundException, IOException{//retorna a (tudo da)comanda de uma mesa especifica (relaciona esta classe com Cozinha) /////não confundir com getListaPedido() que retorna a lista de todos os pedidos da comanda mas não retorna data, numero e mesa 
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(buscar(mesa)!=-1)
 			return mesas.get(buscar(mesa));
 		return null;
@@ -146,8 +190,12 @@ public class GerenciaMesa {
 	 * @param mesa recebe o valor <b>único</b> da mesa que será buscada.
 	 * @param numeroPedido recebe o valor <b>único</b> do pedido que será buscado.
 	 * @return true caso a mesa exista e o pedido esteja na mesa ou false caso não seja encontrado o pedido na mesa ou a própria mesa.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 **/
-	private static boolean ehNumeroPedidoValido(int mesa, int numeroPedido) { // verifica se o numero do pedido e a mesa existem
+	private static boolean ehNumeroPedidoValido(int mesa, int numeroPedido) throws FileNotFoundException, ClassNotFoundException, IOException { // verifica se o numero do pedido e a mesa existem
+		ArrayList<Comanda> mesas = getEstrutura(file);
 		if(buscar(mesa)!=-1) {
 			return mesas.get(buscar(mesa)).buscarPedido(numeroPedido)!=-1; // retorna o valor lógico da comparação
 		}

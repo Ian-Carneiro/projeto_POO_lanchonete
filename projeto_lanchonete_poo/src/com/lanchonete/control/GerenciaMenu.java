@@ -1,4 +1,4 @@
-package com.lanchonete.control;
+	package com.lanchonete.control;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.lanchonete.dao.DaoListGenerico;
 import com.lanchonete.model.Produto;
 /**
  * A classe GerenciaMenu possui métodos para criar, ler, atualizar e deletar produtos de um cardápio.
