@@ -20,12 +20,11 @@ public class GerenciaMenu extends DaoListGenerico<Produto>{
 	 * Inicializa a estrutura ArrayList sem conter valores 
 	 * */
 	private static File file = new File("Produto");
-	private static ArrayList<Produto> produtos;
 	
 	
 	//buscar o indice do produto na lista pelo seu codigo
 	private static int buscarProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
-		produtos = getEstrutura(file);
+		ArrayList<Produto> produtos = getEstrutura(file);
 		if(produtos.isEmpty())
 			return -1;
 		for(int i = 0; i<produtos.size();i++) {
@@ -43,7 +42,7 @@ public class GerenciaMenu extends DaoListGenerico<Produto>{
 	 * @throws FileNotFoundException 
 	 * */
 	public static ArrayList<Produto> listarProdutos() throws FileNotFoundException, ClassNotFoundException, IOException{
-		produtos = getEstrutura(file);
+		ArrayList<Produto> produtos = getEstrutura(file);
 		if(produtos.isEmpty())
 			return null;
 		return produtos;		
@@ -57,7 +56,7 @@ public class GerenciaMenu extends DaoListGenerico<Produto>{
 	 * @throws FileNotFoundException 
 	 * */
 	public static Produto EscolherProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
-		produtos = (getEstrutura(file));
+		ArrayList<Produto> produtos = (getEstrutura(file));
 		for(Produto p: produtos) {
 			if(p.getCodigo() == codigo)
 				return p;
@@ -73,6 +72,7 @@ public class GerenciaMenu extends DaoListGenerico<Produto>{
 	 * @throws FileNotFoundException 
 	 * */
 	public static boolean adicionarProduto(Produto produto) throws FileNotFoundException, ClassNotFoundException, IOException{
+		ArrayList<Produto> produtos = (getEstrutura(file));
 		if(buscarProduto(produto.getCodigo()) >=0 ) {
 			return false;//Produto com codigo ja cadastrado
 		}
@@ -89,10 +89,10 @@ public class GerenciaMenu extends DaoListGenerico<Produto>{
 	 * @throws FileNotFoundException 
 	 * */
 	public static boolean excluirProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
+		ArrayList<Produto> produtos = (getEstrutura(file));
 		if(buscarProduto(codigo)<0)//verifica se o produto existe
 			return false;
 		produtos.remove(produtos.get(buscarProduto(codigo)));
-		
 		push(produtos, file);
 		return true;
 	}
