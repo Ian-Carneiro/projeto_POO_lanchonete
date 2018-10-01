@@ -15,7 +15,7 @@ import com.lanchonete.model.Produto;
  * @see com.lanchonete.model.Produto
  * @version 1.0 
  * */
-public class GerenciaMenu extends DaoListGenerico {
+public class GerenciaMenu extends DaoGenerico {
 	/**
 	 * Inicializa a estrutura ArrayList sem conter valores 
 	 * */
