@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 
@@ -59,14 +61,18 @@ public class TelaMesa extends JFrame {
 		JButton btnNewButton = new JButton("Fazer Pedido");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(GerenciaMenu.listarProdutos()!=null && GerenciaMesa.getComanda((Integer)spinnerMesa.getValue())!=null) {
-					mesa = (Integer)spinnerMesa.getValue();//static
-					telaFazerPedido = new TelaFazerPedido();
-					telaFazerPedido.setVisible(true);
-					dispose();
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "A lista de produtos está vazia\nou a comanda não foi criada!");
+				try {
+					if(GerenciaMenu.listarProdutos()!=null && GerenciaMesa.getComanda((Integer)spinnerMesa.getValue())!=null) {
+						mesa = (Integer)spinnerMesa.getValue();//static
+						telaFazerPedido = new TelaFazerPedido();
+						telaFazerPedido.setVisible(true);
+						dispose();
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "A lista de produtos está vazia\nou a comanda não foi criada!");
+					}
+				} catch (HeadlessException | ClassNotFoundException | IOException e) {
+					JOptionPane.showMessageDialog(null, "Falha na operação de Novo Pedido", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

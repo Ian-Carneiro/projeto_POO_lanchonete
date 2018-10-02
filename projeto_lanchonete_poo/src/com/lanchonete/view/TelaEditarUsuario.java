@@ -19,6 +19,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
 
@@ -166,17 +168,25 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(btnExcluir);
 	}
 	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) {
-		if(GerenciaUsuario.editarUsuario(email, usuario)) {
-			JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");
-		}else {
-			JOptionPane.showMessageDialog(null, "Não houve alterações!");
+		try {
+			if(GerenciaUsuario.editarUsuario(email, usuario)) {
+				JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");
+			}else {
+				JOptionPane.showMessageDialog(null, "Não houve alterações!");
+			}
+		} catch (HeadlessException | ClassNotFoundException | IOException e) {
+			JOptionPane.showMessageDialog(null, "Falha ao editar usuário", "Falha", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	public void removerUsuarioGerenciaUsuario(String email) {
-		if(GerenciaUsuario.removerLogin(email)) {
-			JOptionPane.showMessageDialog(null, "Dados do usuário removidos!");
-		}else {
-			JOptionPane.showMessageDialog(null, "Não houve alteração!");
+		try {
+			if(GerenciaUsuario.removerLogin(email)) {
+				JOptionPane.showMessageDialog(null, "Dados do usuário removidos!");
+			}else {
+				JOptionPane.showMessageDialog(null, "Não houve alteração!");
+			}
+		} catch (HeadlessException | ClassNotFoundException | IOException e) {
+			JOptionPane.showMessageDialog(null, "Falha ao remover usuário", "Falha", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

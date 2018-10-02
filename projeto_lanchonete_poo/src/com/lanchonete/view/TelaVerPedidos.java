@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class TelaVerPedidos extends JFrame {
@@ -27,9 +28,10 @@ public class TelaVerPedidos extends JFrame {
 	 * Create the frame.
 	 */
 	public TelaVerPedidos() {
+		setTitle("Pedidos");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 467, 307);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -39,7 +41,7 @@ public class TelaVerPedidos extends JFrame {
 		DefaultListModel<String> listModel = new DefaultListModel<>();
 		total = 0f;
 		for(Pedido p:GerenciaMesa.getComanda(TelaMesa.getMesa()).getListaPedidos()) {
-			listModel.addElement(p.getNumeroPedido()+"-"+p.getQuantidade()+" "+p.getProduto().getNome()+" subtotal: R$ "+p.getValorTotal());
+			listModel.addElement(p.getNumeroPedido()+"- Quantidade:"+p.getQuantidade()+" "+p.getProduto().getNome()+" subtotal: R$ "+p.getValorTotal());
 			total+=p.getProduto().getPreco();
 		}
 		
@@ -63,19 +65,23 @@ public class TelaVerPedidos extends JFrame {
 				dispose();
 			}
 		});
-		btnOk.setBounds(60, 235, 114, 25);
+		btnOk.setBounds(79, 226, 114, 25);
 		contentPane.add(btnOk);
 		
 		JButton btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
 				numeroPedido = Integer.parseInt(listPedidos.getSelectedValue().split("-")[0]);
 				telaAlterarPedido = new TelaAlterarPedido();
 				telaAlterarPedido.setVisible(true);
 				dispose();
+				}catch(ClassNotFoundException | IOException e1) {
+					
+				}
 			}
 		});
-		btnEditar.setBounds(280, 235, 114, 25);
+		btnEditar.setBounds(273, 226, 114, 25);
 		contentPane.add(btnEditar);
 	}
 	public static Pedido getPedido() {

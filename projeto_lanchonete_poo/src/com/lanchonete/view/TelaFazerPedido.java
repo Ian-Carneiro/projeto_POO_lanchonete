@@ -17,6 +17,8 @@ import javax.swing.JSpinner;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 
@@ -40,8 +42,12 @@ public class TelaFazerPedido extends JFrame {
 		contentPane.add(lblProduto);
 		
 		DefaultListModel<String> listModel = new DefaultListModel<>();
-		for(Produto p:GerenciaMenu.listarProdutos()) {
-			listModel.addElement(p.getCodigo()+"-"+p.getNome());
+		try {
+			for(Produto p:GerenciaMenu.listarProdutos()) {
+				listModel.addElement(p.getCodigo()+"-"+p.getNome());
+			}
+		} catch (ClassNotFoundException | IOException e1) {
+			JOptionPane.showMessageDialog(null, "Falha na listagem de produtos", "Falha", JOptionPane.ERROR_MESSAGE);
 		}
 		JList<String> listProdutos = new JList<>();
 		listProdutos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -65,11 +71,15 @@ public class TelaFazerPedido extends JFrame {
 				
 				String s = listProdutos.getSelectedValue();
 				
-				if(GerenciaMesa.fazerPedido(TelaMesa.getMesa(), new Pedido((Integer)spinnerQuant.getValue(), 
-						GerenciaMenu.EscolherProduto(Integer.parseInt(s.split("-")[0]))))) {
-					JOptionPane.showMessageDialog(null, "Pedido realizado com sucesso!");
-				}else {
-					JOptionPane.showMessageDialog(null, "Pedido não foi efetuado!");
+				try {
+					if(GerenciaMesa.fazerPedido(TelaMesa.getMesa(), new Pedido((Integer)spinnerQuant.getValue(), 
+							GerenciaMenu.EscolherProduto(Integer.parseInt(s.split("-")[0]))))) {
+						JOptionPane.showMessageDialog(null, "Pedido realizado com sucesso!");
+					}else {
+						JOptionPane.showMessageDialog(null, "Pedido não foi efetuado!");
+					}
+				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e) {
+					JOptionPane.showMessageDialog(null, "Falha na operação Novo Pedido", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}

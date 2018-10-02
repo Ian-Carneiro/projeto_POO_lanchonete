@@ -3,6 +3,7 @@ package com.lanchonete.view;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -114,17 +115,17 @@ public class TelaCadastroUsuario extends JFrame {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate ld = LocalDate.parse(ftfData.getText(), formatter);
-				usuario = new Usuario(ftfCpf.getText(), tfNome.getText(), tfEmail.getText()+cbEmail.getSelectedItem(),
-						new String(passwordField.getPassword()), ftfTelefone.getText(),
-						ld, (String)cbSetor.getSelectedItem());
-				dispose();
-				inicial = new TelaInicial();
-				inicial.setVisible(true);
 				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate ld = LocalDate.parse(ftfData.getText(), formatter);
+					usuario = new Usuario(ftfCpf.getText(), tfNome.getText(), tfEmail.getText()+cbEmail.getSelectedItem(),
+							new String(passwordField.getPassword()), ftfTelefone.getText(),
+							ld, (String)cbSetor.getSelectedItem());
+					dispose();
+					inicial = new TelaInicial();
+					inicial.setVisible(true);
 					addUsuarioGerenciaUsuario(usuario);
-				} catch (HeadlessException | ClassNotFoundException | IOException e) {
+				} catch (HeadlessException | ClassNotFoundException | IOException | DateTimeParseException e) {
 					JOptionPane.showMessageDialog(null, "Falha na operação de Novo Cadastro", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}

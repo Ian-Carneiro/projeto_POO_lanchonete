@@ -10,6 +10,8 @@ import com.lanchonete.model.Pedido;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 
 public class TelaCozinha extends JFrame {
@@ -42,12 +44,16 @@ public class TelaCozinha extends JFrame {
 		JButton btnAtender = new JButton("Atender");
 		btnAtender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(comboBox.getSelectedItem()!=null && Cozinha.atender(Integer.parseInt(((String)comboBox.getSelectedItem()).split("-")[0]))){
-					JOptionPane.showMessageDialog(null, "Pedido atendido com sucesso!");
-					dispose();
-					new TelaCozinha().setVisible(true);
-				}else {
-					JOptionPane.showMessageDialog(null, "Não houve alteração!");
+				try {
+					if(comboBox.getSelectedItem()!=null && Cozinha.atender(Integer.parseInt(((String)comboBox.getSelectedItem()).split("-")[0]))){
+						JOptionPane.showMessageDialog(null, "Pedido atendido com sucesso!");
+						dispose();
+						new TelaCozinha().setVisible(true);
+					}else {
+						JOptionPane.showMessageDialog(null, "Não houve alteração!");
+					}
+				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
+					JOptionPane.showMessageDialog(null, "Falha ao atender pedido", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
