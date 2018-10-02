@@ -149,7 +149,7 @@ public class TelaEditarUsuario extends JFrame {
 				dispose();
 			}
 		});
-		btnSalvar.setBounds(66, 235, 114, 25);
+		btnSalvar.setBounds(55, 213, 114, 25);
 		contentPane.add(btnSalvar);
 		
 		JButton btnExcluir = new JButton("Excluir");
@@ -164,8 +164,19 @@ public class TelaEditarUsuario extends JFrame {
 				}
 			}
 		});
-		btnExcluir.setBounds(273, 235, 114, 25);
+		btnExcluir.setBounds(181, 213, 114, 25);
 		contentPane.add(btnExcluir);
+		
+		JButton btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				TelaPrincipal telaPrinc = new TelaPrincipal();
+				telaPrinc.setVisible(true);
+				dispose();
+			}
+		});
+		btnVoltar.setBounds(307, 213, 114, 25);
+		contentPane.add(btnVoltar);
 	}
 	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) {
 		try {
