@@ -32,12 +32,12 @@ public class TelaInicial extends JFrame {
 	private static Usuario usuario;
 	private TelaCadastroUsuario cadastroUsuario;
 	private TelaPrincipal telaPrincipal;
-
+	private JButton btnAutenticar;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GerenciaUsuario.adicionarLogin(new Usuario("11111111111", "123", "123@gmail.com", "123", "83999999999", LocalDate.now(), "GERENCIA"));
 					TelaInicial frame = new TelaInicial();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -57,6 +57,7 @@ public class TelaInicial extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
+		
 		JButton btnCriar = new JButton("Criar nova conta");
 		btnCriar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -72,8 +73,8 @@ public class TelaInicial extends JFrame {
 		btnCriar.setBounds(150, 235, 162, 25);
 		contentPane.add(btnCriar);
 		
-		JButton btnAltenticar = new JButton("Autenticar");
-		btnAltenticar.addActionListener(new ActionListener() {
+		btnAutenticar = new JButton("Autenticar");
+		btnAutenticar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
@@ -97,8 +98,10 @@ public class TelaInicial extends JFrame {
 				}
 			}			
 		});
-		btnAltenticar.setBounds(173, 198, 114, 25);
-		contentPane.add(btnAltenticar);
+		btnAutenticar.setBounds(173, 198, 114, 25);
+		contentPane.add(btnAutenticar);
+		getRootPane().setDefaultButton(btnAutenticar);
+		
 		
 		tfUsuario = new JTextField();
 		tfUsuario.setBounds(94, 98, 297, 25);

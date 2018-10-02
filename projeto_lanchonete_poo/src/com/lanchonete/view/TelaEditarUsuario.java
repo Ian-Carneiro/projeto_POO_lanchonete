@@ -32,8 +32,8 @@ public class TelaEditarUsuario extends JFrame {
 	private JPasswordField passwordField;
 	private TelaInicial inicial;
 	private TelaPrincipal telaPrincipal;
-	private JComboBox<String> cbSetor;
-	private JComboBox<String> cbEmail;
+	private JComboBox cbSetor;
+	private JComboBox cbEmail;
 	
 
 	public TelaEditarUsuario() throws ParseException {
@@ -81,7 +81,7 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(ftfCpf);
 		
 		String[] s1 = {"ATENDIMENTO", "COZINHA", "CAIXA", "GERENCIA"};
-		cbSetor = new JComboBox<>(s1);
+		cbSetor = new JComboBox(s1);
 		int i;
 		for(i = 0; i<s1.length; i++) {
 			if(s1[i].equals(TelaInicial.getAltenticado().getSetor())) {
@@ -118,7 +118,7 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(tfEmail);
 		tfEmail.setColumns(10);
 		
-		cbEmail = new JComboBox<>(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
+		cbEmail = new JComboBox(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
 		String[] s2 = {"gmail.com", "outlook.com", "email.com"};
 		for(i = 0; i<s2.length; i++) {
 			if(s2[i].equals(partesSenha[1])) {//ta dando  ArrayIndexOutOfBoundsException

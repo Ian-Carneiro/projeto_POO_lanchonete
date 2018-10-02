@@ -52,7 +52,7 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 		HashMap<String, Usuario> usuarios = getEstrutura(file);
 		Usuario u = buscarUsuario(email);
 		if(u!=null) {//verifica se o usuario ta cadastrasdo: evitando um remove(null)
-			usuarios.remove(email, u);//remove o usuario encontrado a partir da chave passada
+			usuarios.remove(email);//remove o usuario encontrado a partir da chave passada
 			push(usuarios, file);
 			return true;
 		}
@@ -105,9 +105,10 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 	 * */
 	public static Usuario buscarUsuario(String email) throws FileNotFoundException, ClassNotFoundException, IOException {
 		HashMap<String, Usuario> usuarios = getEstrutura(file);
-		if(usuarios.isEmpty())
+		Usuario u = usuarios.get(email);
+		if(usuarios.isEmpty() || u == null)
 			return null;
-		return usuarios.get(email);
+		return u;
 	}
 
 }
