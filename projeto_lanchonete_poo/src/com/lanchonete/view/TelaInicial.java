@@ -37,7 +37,6 @@ public class TelaInicial extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GerenciaUsuario.adicionarLogin(new Usuario("11111111111", "123", "123@gmail.com", "123", "83999999999", LocalDate.now(), "GERENCIA"));
 					TelaInicial frame = new TelaInicial();
 					frame.setVisible(true);
 				} catch (Exception e) {

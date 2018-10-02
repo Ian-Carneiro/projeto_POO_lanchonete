@@ -52,7 +52,7 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 		HashMap<String, Usuario> usuarios = getEstrutura(file);
 		Usuario u = buscarUsuario(email);
 		if(u!=null) {//verifica se o usuario ta cadastrasdo: evitando um remove(null)
-			usuarios.remove(email, u);//remove o usuario encontrado a partir da chave passada
+			usuarios.remove(email);//remove o usuario encontrado a partir da chave passada
 			push(usuarios, file);
 			return true;
 		}
