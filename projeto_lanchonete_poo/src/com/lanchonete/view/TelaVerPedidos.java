@@ -9,15 +9,13 @@ import com.lanchonete.control.GerenciaMesa;
 import com.lanchonete.model.Pedido;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
-=======
 import java.io.FileNotFoundException;
->>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 
@@ -34,15 +32,11 @@ public class TelaVerPedidos extends JFrame {
 	 * @throws ClassNotFoundException 
 	 * @throws FileNotFoundException 
 	 */
-<<<<<<< HEAD
-	public TelaVerPedidos() {
-		setTitle("Pedidos");
-=======
-	public TelaVerPedidos() throws FileNotFoundException, ClassNotFoundException, IOException {//<<<<<<<<<<<<<<<<<<<<<<<<
->>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
+	public TelaVerPedidos() throws FileNotFoundException, ClassNotFoundException, IOException {
+		setTitle("Pedidos");//<<<<<<<<<<<<<<<<<<<<<<<<
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 467, 307);
+		setBounds(100, 100, 510, 307);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -53,12 +47,8 @@ public class TelaVerPedidos extends JFrame {
 		total = 0f;
 		String isAtendido;
 		for(Pedido p:GerenciaMesa.getComanda(TelaMesa.getMesa()).getListaPedidos()) {
-<<<<<<< HEAD
-			listModel.addElement(p.getNumeroPedido()+"- Quantidade:"+p.getQuantidade()+" "+p.getProduto().getNome()+" subtotal: R$ "+p.getValorTotal());
-=======
-			isAtendido = p.isAtendido()?"<<< Atendido ":"<<< Não atendido ";
-			listModel.addElement(p.getNumeroPedido()+"-"+p.getQuantidade()+p.getProduto().getNome()+isAtendido+" subtotal: R$ "+p.getValorTotal());
->>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
+			isAtendido = p.isAtendido()?" <- Atendido ":" <- Não atendido ";
+			listModel.addElement(p.getNumeroPedido()+"- Quantidade: "+p.getQuantidade()+" "+p.getProduto().getNome()+isAtendido+" subtotal: R$ "+p.getValorTotal());
 			total+=p.getProduto().getPreco();
 		}
 		
@@ -66,12 +56,12 @@ public class TelaVerPedidos extends JFrame {
 		listPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listPedidos.setModel(listModel);
 		listPedidos.setSelectedIndex(0);
-		listPedidos.setBounds(12, 0, 426, 187);
+		listPedidos.setBounds(12, 0, 467, 187);
 		contentPane.add(listPedidos);
 		
 		JLabel lblTotal = new JLabel("Total: R$ "+GerenciaMesa.getComanda(TelaMesa.getMesa()).valorTotal());
 		lblTotal.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTotal.setBounds(213, 199, 225, 15);
+		lblTotal.setBounds(238, 199, 225, 15);
 		contentPane.add(lblTotal);
 		
 		JButton btnOk = new JButton("Ok");
@@ -93,8 +83,8 @@ public class TelaVerPedidos extends JFrame {
 				telaAlterarPedido = new TelaAlterarPedido();
 				telaAlterarPedido.setVisible(true);
 				dispose();
-				}catch(ClassNotFoundException | IOException e1) {
-					
+				}catch(ClassNotFoundException | IOException | NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "Falha na operação", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

@@ -98,7 +98,7 @@ public class TelaAlterarPedido extends JFrame {
 					}else {
 						JOptionPane.showMessageDialog(null, "Não houve alterações!");
 					}
-				} catch (HeadlessException e1) {
+				} catch (HeadlessException | ClassNotFoundException | IOException e1) {
 					JOptionPane.showMessageDialog(null, "Falha ao excluir pedido", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 				telaMesa = new TelaMesa();

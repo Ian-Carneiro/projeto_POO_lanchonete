@@ -17,10 +17,7 @@ import javax.swing.JSpinner;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-<<<<<<< HEAD
-=======
 import java.io.FileNotFoundException;
->>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
 import java.io.IOException;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -83,12 +80,7 @@ public class TelaFazerPedido extends JFrame {
 						JOptionPane.showMessageDialog(null, "Pedido não foi efetuado!");
 					}
 				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e) {
-<<<<<<< HEAD
 					JOptionPane.showMessageDialog(null, "Falha na operação Novo Pedido", "Falha", JOptionPane.ERROR_MESSAGE);
-=======
-					// TODO Auto-generated catch block
-					e.printStackTrace();
->>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
 				}
 				
 			}

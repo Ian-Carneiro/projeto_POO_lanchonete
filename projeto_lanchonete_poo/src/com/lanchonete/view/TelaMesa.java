@@ -77,12 +77,7 @@ public class TelaMesa extends JFrame {
 						JOptionPane.showMessageDialog(null, "A lista de produtos está vazia\nou a comanda não foi criada!");
 					}
 				} catch (HeadlessException | ClassNotFoundException | IOException e) {
-<<<<<<< HEAD
 					JOptionPane.showMessageDialog(null, "Falha na operação de Novo Pedido", "Falha", JOptionPane.ERROR_MESSAGE);
-=======
-					// TODO Auto-generated catch block
-					e.printStackTrace();
->>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
 				}
 			}
 		});
