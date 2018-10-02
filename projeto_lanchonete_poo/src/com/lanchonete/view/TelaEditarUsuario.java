@@ -19,6 +19,10 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
+=======
+import java.io.FileNotFoundException;
+>>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
 import java.io.IOException;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -118,7 +122,7 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(tfEmail);
 		tfEmail.setColumns(10);
 		
-		cbEmail = new JComboBox<>(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
+		cbEmail = new JComboBox(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
 		String[] s2 = {"gmail.com", "outlook.com", "email.com"};
 		for(i = 0; i<s2.length; i++) {
 			if(s2[i].equals(partesSenha[1])) {//ta dando  ArrayIndexOutOfBoundsException
@@ -167,6 +171,7 @@ public class TelaEditarUsuario extends JFrame {
 		btnExcluir.setBounds(273, 235, 114, 25);
 		contentPane.add(btnExcluir);
 	}
+<<<<<<< HEAD
 	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) {
 		try {
 			if(GerenciaUsuario.editarUsuario(email, usuario)) {
@@ -187,6 +192,20 @@ public class TelaEditarUsuario extends JFrame {
 			}
 		} catch (HeadlessException | ClassNotFoundException | IOException e) {
 			JOptionPane.showMessageDialog(null, "Falha ao remover usuário", "Falha", JOptionPane.ERROR_MESSAGE);
+=======
+	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException {
+		if(GerenciaUsuario.editarUsuario(email, usuario)) {
+			JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");
+		}else {
+			JOptionPane.showMessageDialog(null, "Não houve alterações!");
+		}
+	}
+	public void removerUsuarioGerenciaUsuario(String email) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException {
+		if(GerenciaUsuario.removerLogin(email)) {
+			JOptionPane.showMessageDialog(null, "Dados do usuário removidos!");
+		}else {
+			JOptionPane.showMessageDialog(null, "Não houve alteração!");
+>>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
 		}
 	}
 }

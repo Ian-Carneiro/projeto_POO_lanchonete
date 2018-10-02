@@ -1,4 +1,5 @@
 package com.lanchonete.model;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @see com.lanchonete.control.GerenciaMesa
  * @version 1.0
  **/
-public class Comanda {
+public class Comanda implements Serializable{
 	private List<Pedido> comanda; 
 	private int mesa;
 	private static int id;
@@ -26,6 +27,12 @@ public class Comanda {
 		comanda = new ArrayList<>();
 		this.mesa = mesa;
 		data = LocalDate.now();
+	}
+	public void setContador(int id) {
+		numeroComanda = id;
+	}
+	public int getContador() {
+		return numeroComanda;
 	}
 	private int getTamanho() {
 		return comanda.size();

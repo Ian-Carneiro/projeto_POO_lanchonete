@@ -87,16 +87,12 @@ public class TelaInicial extends JFrame {
 						JOptionPane.showMessageDialog(null, "Não Foi possível altenticar");
 					}
 				} catch (HeadlessException e1) {
-					// TODO Auto-generated catch block
 					System.out.println("HeadlessException");
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
 					System.out.println("FileNotFoundException");
 				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
 					System.out.println("ClassNotFoundException");
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					System.out.println("IOException");
 				}
 			}			

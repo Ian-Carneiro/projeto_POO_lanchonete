@@ -22,7 +22,6 @@ public class GerenciaMenu extends DaoListGenerico<Produto>{
 	 * */
 	private static File file = new File("Produto");
 	
-	
 	//buscar o indice do produto na lista pelo seu codigo
 	private static int buscarProduto(int codigo) throws FileNotFoundException, ClassNotFoundException, IOException {
 		ArrayList<Produto> produtos = getEstrutura(file);

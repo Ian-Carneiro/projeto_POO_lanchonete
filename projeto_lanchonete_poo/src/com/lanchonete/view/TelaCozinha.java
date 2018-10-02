@@ -53,7 +53,12 @@ public class TelaCozinha extends JFrame {
 						JOptionPane.showMessageDialog(null, "Não houve alteração!");
 					}
 				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
+<<<<<<< HEAD
 					JOptionPane.showMessageDialog(null, "Falha ao atender pedido", "Falha", JOptionPane.ERROR_MESSAGE);
+=======
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+>>>>>>> 96a4384544c177a3a53b423974cfb10b003a2096
 				}
 			}
 		});

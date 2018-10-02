@@ -21,6 +21,8 @@ public class Gerencia {
 	 * Adiciona uma mesa que foi encerrada para a lista de mesas de Gerencia. 
 	 **/
 	static boolean addParaGerencia(Comanda d) {//esta função é usada somente por GerenciaMesa 
+		if(!gerencia.isEmpty())
+			d.setContador(gerencia.get(gerencia.size()-1).getContador());
 		return gerencia.add(d);
 	}
 	
@@ -30,14 +32,14 @@ public class Gerencia {
 	 * @param fim recebe a data que determina o fim do intervalo de datas.
 	 * @return Todas as mesas que estão com data de criação dentro do período informado.
 	 **/
-	public static String listarComandasEntre(LocalDate inicio, LocalDate fim) {
-		String s = "";
+	public static ArrayList<Comanda> listarComandasEntre(LocalDate inicio, LocalDate fim) {
+		ArrayList<Comanda> comandas = new ArrayList<>();
 		for(Comanda c : gerencia) {
 			if(c.getData().isAfter(inicio.plusDays(-1)) && c.getData().isBefore(fim.plusDays(1))) {// se a data de uma comanda c qualquer for depois de "inicio-1" e antes de "fim+1" ela é concatenada como String
-				s+=c.toString();
+				comandas.add(c);
 			}
 		}
-		return s;
+		return comandas;
 	}
 	
 	/**
