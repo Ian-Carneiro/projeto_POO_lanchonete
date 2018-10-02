@@ -71,12 +71,8 @@ public class Pedido implements Serializable{
 		this.quantidade = quantidade;
 	}
 	/**
-<<<<<<< HEAD
-	 * Retorna o valor total do pedido. A multiplica��o do pre�� por unidade vezes a quantidade de produtos.
-=======
 	 * Retorna o valor total do pedido. A multipliçãoo do preço por unidade vezes a quantidade de produtos.
->>>>>>> 796f3035409d5710822f6274195c566336af5a3d
-	 **/
+	 * */
 	public float getValorTotal() {
 		return produto.getPreco() * quantidade;  //retorna a multiplicação do preço unitário do produto pela quantidade de produtos pedidos
 	}
@@ -86,12 +82,8 @@ public class Pedido implements Serializable{
 	
 	/**
 	 * Retorna o toString do Pedido
-<<<<<<< HEAD
-	 * @return String todas as informa��es do pedido.
-=======
 	 * @return String todas as informações do pedido.
->>>>>>> 796f3035409d5710822f6274195c566336af5a3d
-	 **/
+	 */
 	@Override
 	public String toString() {
 		String s = isAtendido()? "Atendido":"Ñ atendido";

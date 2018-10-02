@@ -21,6 +21,8 @@ public class Gerencia {
 	 * Adiciona uma mesa que foi encerrada para a lista de mesas de Gerencia. 
 	 **/
 	static boolean addParaGerencia(Comanda d) {//esta função é usada somente por GerenciaMesa 
+		if(!gerencia.isEmpty())
+			d.setContador(gerencia.get(gerencia.size()-1).getContador());
 		return gerencia.add(d);
 	}
 	

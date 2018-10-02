@@ -1,14 +1,23 @@
 package com.lanchonete.view;
 
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
+
+import com.lanchonete.control.Gerencia;
+import com.lanchonete.model.Comanda;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
@@ -19,6 +28,7 @@ public class TelaGerencia extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private DefaultTableModel model;
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
@@ -49,11 +59,16 @@ public class TelaGerencia extends JFrame {
 		ftfDF.setBounds(270, 12, 113, 25);
 		contentPane.add(ftfDF);
 		
-//		DefaultTableModel
 		table = new JTable();
+		String[] cols = {"Data", "Comanda", "Valor"};
+		model = new DefaultTableModel(cols, 0);
+		table.setModel(model);
+		contentPane.add(table);
+		table.setEnabled(true);
+		table.setRowSelectionAllowed(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBounds(12, 44, 426, 154);
-		contentPane.add(table);
+		
 		
 		JLabel label = new JLabel("");
 		label.setBounds(372, 210, 66, 15);
@@ -62,6 +77,23 @@ public class TelaGerencia extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				ftfDI.getText();
+				ftfDF.getText();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate di = LocalDate.parse(ftfDI.getText(), formatter);
+				LocalDate df = LocalDate.parse(ftfDF.getText(), formatter);
+				if(di.isAfter(df)) {
+					JOptionPane.showMessageDialog(null, "Informe corretamente o intervalo de datas!");
+				}else {
+					ArrayList<Comanda> comandas = Gerencia.listarComandasEntre(di, df);
+					if(comandas.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Comandas não encontradas");
+					}else {
+						for(Comanda c:comandas) {
+							model.addRow(new String[]{c.getData().toString(), " Comanda "+c.getContador(), " "+c.valorTotal()+" R$"});
+						}
+					}
+				}
 			}
 		});
 		btnBuscar.setBounds(235, 235, 114, 25);

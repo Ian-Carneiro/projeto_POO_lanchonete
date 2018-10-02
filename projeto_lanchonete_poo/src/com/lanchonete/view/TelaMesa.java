@@ -13,6 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 
@@ -46,10 +48,15 @@ public class TelaMesa extends JFrame {
 		JButton btnNovaComanda = new JButton("Nova comanda");
 		btnNovaComanda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(GerenciaMesa.novaComanda((Integer)spinnerMesa.getValue())){
-					JOptionPane.showMessageDialog(null, "Comanda criada com sucesso!");
-				}else {
-					JOptionPane.showMessageDialog(null, "A comanda não pôde ser criada!");
+				try {
+					if(GerenciaMesa.novaComanda((Integer)spinnerMesa.getValue())){
+						JOptionPane.showMessageDialog(null, "Comanda criada com sucesso!");
+					}else {
+						JOptionPane.showMessageDialog(null, "A comanda não pôde ser criada!");
+					}
+				} catch (HeadlessException | ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
@@ -59,14 +66,19 @@ public class TelaMesa extends JFrame {
 		JButton btnNewButton = new JButton("Fazer Pedido");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(GerenciaMenu.listarProdutos()!=null && GerenciaMesa.getComanda((Integer)spinnerMesa.getValue())!=null) {
-					mesa = (Integer)spinnerMesa.getValue();//static
-					telaFazerPedido = new TelaFazerPedido();
-					telaFazerPedido.setVisible(true);
-					dispose();
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "A lista de produtos está vazia\nou a comanda não foi criada!");
+				try {
+					if(GerenciaMenu.listarProdutos()!=null && GerenciaMesa.getComanda((Integer)spinnerMesa.getValue())!=null) {
+						mesa = (Integer)spinnerMesa.getValue();//static
+						telaFazerPedido = new TelaFazerPedido();
+						telaFazerPedido.setVisible(true);
+						dispose();
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "A lista de produtos está vazia\nou a comanda não foi criada!");
+					}
+				} catch (HeadlessException | ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
@@ -76,13 +88,18 @@ public class TelaMesa extends JFrame {
 		JButton btnNewButton_1 = new JButton("Ver pedidos");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(GerenciaMesa.verPedidos((Integer)spinnerMesa.getValue())=="") {
-					JOptionPane.showMessageDialog(null, "Não foram feitos pedidos");
-				}else{
-					mesa = (Integer)spinnerMesa.getValue();//static
-					telaVerPedidos = new TelaVerPedidos();
-					telaVerPedidos.setVisible(true);
-					dispose();
+				try {
+					if(GerenciaMesa.verPedidos((Integer)spinnerMesa.getValue())=="") {
+						JOptionPane.showMessageDialog(null, "Não foram feitos pedidos");
+					}else{
+						mesa = (Integer)spinnerMesa.getValue();//static
+						telaVerPedidos = new TelaVerPedidos();
+						telaVerPedidos.setVisible(true);
+						dispose();
+					}
+				} catch (HeadlessException | ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
@@ -92,13 +109,24 @@ public class TelaMesa extends JFrame {
 		JButton btnEncerrarComanda = new JButton("Encerrar Comanda");
 		btnEncerrarComanda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Comanda c = GerenciaMesa.getComanda((Integer)spinnerMesa.getValue());
-				if(c!=null && GerenciaMesa.encerrarComanda(c.getMesa())) {
-					JOptionPane.showMessageDialog(null, "Comanda encerrada com sucesso!\n" +"Valor Total:"
-							+ c.valorTotal());
+				Comanda c = null;
+				try {
+					c = GerenciaMesa.getComanda((Integer)spinnerMesa.getValue());
+				} catch (ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else {
-					JOptionPane.showMessageDialog(null, "Não houve alterações!");
+				try {
+					if(c!=null && GerenciaMesa.encerrarComanda(c.getMesa())) {
+						JOptionPane.showMessageDialog(null, "Comanda encerrada com sucesso!\n" +"Valor Total:"
+								+ c.valorTotal());
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Não houve alterações!");
+					}
+				} catch (HeadlessException | ClassNotFoundException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});

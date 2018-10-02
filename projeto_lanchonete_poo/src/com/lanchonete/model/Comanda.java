@@ -28,6 +28,12 @@ public class Comanda implements Serializable{
 		this.mesa = mesa;
 		data = LocalDate.now();
 	}
+	public void setContador(int id) {
+		numeroComanda = id;
+	}
+	public int getContador() {
+		return numeroComanda;
+	}
 	private int getTamanho() {
 		return comanda.size();
 	}

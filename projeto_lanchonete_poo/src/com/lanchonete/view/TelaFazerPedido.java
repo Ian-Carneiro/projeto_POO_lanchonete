@@ -17,6 +17,9 @@ import javax.swing.JSpinner;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 
@@ -25,7 +28,7 @@ public class TelaFazerPedido extends JFrame {
 	private JPanel contentPane;
 	private TelaMesa telaMesa;
 
-	public TelaFazerPedido() {
+	public TelaFazerPedido() throws FileNotFoundException, ClassNotFoundException, IOException {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
@@ -65,11 +68,16 @@ public class TelaFazerPedido extends JFrame {
 				
 				String s = listProdutos.getSelectedValue();
 				
-				if(GerenciaMesa.fazerPedido(TelaMesa.getMesa(), new Pedido((Integer)spinnerQuant.getValue(), 
-						GerenciaMenu.EscolherProduto(Integer.parseInt(s.split("-")[0]))))) {
-					JOptionPane.showMessageDialog(null, "Pedido realizado com sucesso!");
-				}else {
-					JOptionPane.showMessageDialog(null, "Pedido não foi efetuado!");
+				try {
+					if(GerenciaMesa.fazerPedido(TelaMesa.getMesa(), new Pedido((Integer)spinnerQuant.getValue(), 
+							GerenciaMenu.EscolherProduto(Integer.parseInt(s.split("-")[0]))))) {
+						JOptionPane.showMessageDialog(null, "Pedido realizado com sucesso!");
+					}else {
+						JOptionPane.showMessageDialog(null, "Pedido não foi efetuado!");
+					}
+				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				
 			}
