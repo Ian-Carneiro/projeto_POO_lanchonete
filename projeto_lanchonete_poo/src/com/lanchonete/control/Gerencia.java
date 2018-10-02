@@ -22,7 +22,7 @@ public class Gerencia {
 	 **/
 	static boolean addParaGerencia(Comanda d) {//esta função é usada somente por GerenciaMesa 
 		if(!gerencia.isEmpty())
-			d.setContador(gerencia.get(gerencia.size()-1).getContador());
+			d.setContador(gerencia.get(gerencia.size()-1).getContador()+1);
 		return gerencia.add(d);
 	}
 	

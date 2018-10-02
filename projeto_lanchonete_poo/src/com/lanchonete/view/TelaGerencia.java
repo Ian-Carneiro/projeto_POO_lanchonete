@@ -23,12 +23,14 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 
 public class TelaGerencia extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
 	private DefaultTableModel model;
+	private JTable table_1;
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
@@ -40,16 +42,15 @@ public class TelaGerencia extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(null);//new FlowLayout());//<<<<<<<<<
 		setLocationRelativeTo(null);
+		
+		JLabel lblInicio = new JLabel("Inicio");
+		contentPane.add(lblInicio);
 		
 		JFormattedTextField ftfDI = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		ftfDI.setBounds(60, 12, 113, 25);
 		contentPane.add(ftfDI);
-		
-		JLabel lblNewLabel = new JLabel("Inicio");
-		lblNewLabel.setBounds(12, 17, 50, 15);
-		contentPane.add(lblNewLabel);
 		
 		JLabel lblFim = new JLabel("Fim");
 		lblFim.setBounds(235, 17, 37, 15);
@@ -59,20 +60,26 @@ public class TelaGerencia extends JFrame {
 		ftfDF.setBounds(270, 12, 113, 25);
 		contentPane.add(ftfDF);
 		
-		table = new JTable();
-		String[] cols = {"Data", "Comanda", "Valor"};
-		model = new DefaultTableModel(cols, 0);
-		table.setModel(model);
-		contentPane.add(table);
-		table.setEnabled(true);
-		table.setRowSelectionAllowed(false);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBounds(12, 44, 426, 154);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 49, 426, 149);
+		contentPane.add(scrollPane);
+		table_1 = new JTable() {
+		    public boolean isCellEditable(int rowIndex, int vColIndex) {
+		    	return false;
+		    }
+		};
+		table_1.removeEditor();
+		model = new DefaultTableModel();
+		model.addColumn("Data");
+		model.addColumn("Comanda");
+		model.addColumn("Valor");
+		table_1.setModel(model);
+		scrollPane.setViewportView(table_1);
 		
+		JLabel lblR = new JLabel("R$");
+		lblR.setBounds(372, 210, 66, 15);
+		contentPane.add(lblR);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(372, 210, 66, 15);
-		contentPane.add(label);
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
@@ -89,9 +96,17 @@ public class TelaGerencia extends JFrame {
 					if(comandas.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "Comandas não encontradas");
 					}else {
-						for(Comanda c:comandas) {
-							model.addRow(new String[]{c.getData().toString(), " Comanda "+c.getContador(), " "+c.valorTotal()+" R$"});
+						int quantRows = model.getRowCount();
+						if(quantRows>0) {
+							for(int i = 0;i < quantRows;i++) {
+								model.removeRow(0);
+							}
 						}
+						for(Comanda c:comandas) {
+							model.addRow(new String[]{c.getData().toString(), "Comanda "+c.getContador(), c.valorTotal()+" R$"});	
+						}
+						lblR.setText(Gerencia.lucroTotalEntre(di, df)+" R$");
+//						scrollPane.setViewportView(table_1);
 					}
 				}
 			}
@@ -109,8 +124,10 @@ public class TelaGerencia extends JFrame {
 		btnVoltar.setBounds(59, 235, 114, 25);
 		contentPane.add(btnVoltar);
 		
-		JLabel lblR = new JLabel("R$");
-		lblR.setBounds(372, 210, 66, 15);
-		contentPane.add(lblR);
+		
+		
+		
+		
+		
 	}
 }
