@@ -16,6 +16,9 @@ import com.lanchonete.model.Pedido;
 import com.lanchonete.model.Produto;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 
@@ -25,8 +28,11 @@ public class TelaAlterarPedido extends JFrame {
 	private TelaMesa telaMesa;
 	/**
 	 * Create the frame.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public TelaAlterarPedido() {
+	public TelaAlterarPedido() throws FileNotFoundException, ClassNotFoundException, IOException {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 370);
@@ -63,13 +69,17 @@ public class TelaAlterarPedido extends JFrame {
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(GerenciaMesa.modificarPedido(TelaMesa.getMesa(),
-						new Pedido((Integer)spinnerQuant.getValue(),
-								GerenciaMenu.EscolherProduto(Integer.parseInt(listProdutos.getSelectedValue().split("-")[0]))), 
-						TelaVerPedidos.getPedido().getNumeroPedido())) {
-					JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
-				}else {
-					JOptionPane.showMessageDialog(null, "Não houve modificações!");
+				try {
+					if(GerenciaMesa.modificarPedido(TelaMesa.getMesa(),
+							new Pedido((Integer)spinnerQuant.getValue(),
+									GerenciaMenu.EscolherProduto(Integer.parseInt(listProdutos.getSelectedValue().split("-")[0]))), 
+							TelaVerPedidos.getPedido().getNumeroPedido())) {
+						JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso!");
+					}else {
+						JOptionPane.showMessageDialog(null, "Não houve modificações!");
+					}
+				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
+					JOptionPane.showMessageDialog(null, "Falha na modificação do pedido", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 				telaMesa = new TelaMesa();
 				telaMesa.setVisible(true);
@@ -82,10 +92,14 @@ public class TelaAlterarPedido extends JFrame {
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(GerenciaMesa.excluirPedido(TelaMesa.getMesa(), TelaVerPedidos.getPedido().getNumeroPedido())) {
-					JOptionPane.showMessageDialog(null, "Pedido excluido com sucesso!");
-				}else {
-					JOptionPane.showMessageDialog(null, "Não houve alterações!");
+				try {
+					if(GerenciaMesa.excluirPedido(TelaMesa.getMesa(), TelaVerPedidos.getPedido().getNumeroPedido())) {
+						JOptionPane.showMessageDialog(null, "Pedido excluido com sucesso!");
+					}else {
+						JOptionPane.showMessageDialog(null, "Não houve alterações!");
+					}
+				} catch (HeadlessException | ClassNotFoundException | IOException e1) {
+					JOptionPane.showMessageDialog(null, "Falha ao excluir pedido", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 				telaMesa = new TelaMesa();
 				telaMesa.setVisible(true);

@@ -37,27 +37,17 @@ public class TelaInicial extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					GerenciaUsuario.adicionarLogin(new Usuario("11111111111", "123", "123@gmail.com", "123", "83999999999", LocalDate.now(), "GERENCIA"));
 					TelaInicial frame = new TelaInicial();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Erro ao iniciar", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 	}
 
 	public TelaInicial() {
-
-			try {
-				GerenciaUsuario.adicionarLogin(new Usuario("11111111111", "123", "123", "123", "83999999999", LocalDate.now(), "GERENCIA"));
-			} catch (FileNotFoundException e2) {
-				System.out.println("FileNotFoundException");
-			} catch (ClassNotFoundException e2) {
-				System.out.println("ClassNotFoundException");
-			} catch (IOException e2) {
-				System.out.println("IOException");
-			}
-		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
