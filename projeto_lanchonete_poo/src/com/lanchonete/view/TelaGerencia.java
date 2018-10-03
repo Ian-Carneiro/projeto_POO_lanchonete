@@ -23,6 +23,8 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -108,11 +110,16 @@ public class TelaGerencia extends JFrame {
 								model.addRow(new String[]{c.getData().toString(), "Comanda "+c.getContador(), c.valorTotal()+" R$"});	
 							}
 							lblR.setText(Gerencia.lucroTotalEntre(di, df)+" R$");
-		//					scrollPane.setViewportView(table_1);
 						}
 					}
 				}catch (DateTimeParseException ex) {
 					JOptionPane.showMessageDialog(null, "Preencha com datas válidas", "Formato inválido", JOptionPane.ERROR_MESSAGE);
+				} catch (FileNotFoundException e) {
+					JOptionPane.showMessageDialog(null, "Arquivo não encontrado", "Falha", JOptionPane.ERROR_MESSAGE);
+				} catch (ClassNotFoundException e) {
+					JOptionPane.showMessageDialog(null, "Falha na busca", "Falha", JOptionPane.ERROR_MESSAGE);
+				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
