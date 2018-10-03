@@ -29,6 +29,7 @@ public class TelaFazerPedido extends JFrame {
 	private TelaMesa telaMesa;
 
 	public TelaFazerPedido() throws FileNotFoundException, ClassNotFoundException, IOException {
+		setTitle("Produtos");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
@@ -96,7 +97,7 @@ public class TelaFazerPedido extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(12, 335, 426, 25);
+		btnNewButton.setBounds(12, 316, 426, 25);
 		contentPane.add(btnNewButton);
 	}
 }

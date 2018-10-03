@@ -122,10 +122,11 @@ public class TelaCadastroUsuario extends JFrame {
 					usuario = new Usuario(ftfCpf.getText(), tfNome.getText(), tfEmail.getText()+cbEmail.getSelectedItem(),
 							new String(passwordField.getPassword()), ftfTelefone.getText(),
 							ld, (String)cbSetor.getSelectedItem());
-					dispose();
+					addUsuarioGerenciaUsuario(usuario);
 					inicial = new TelaInicial();
 					inicial.setVisible(true);
-					addUsuarioGerenciaUsuario(usuario);
+					dispose();
+					
 				} catch (HeadlessException | ClassNotFoundException  e) {
 					JOptionPane.showMessageDialog(null, "Falha na operação de Novo Cadastro", "Falha", JOptionPane.ERROR_MESSAGE);
 				}catch(DataNascimentoException ex) {
