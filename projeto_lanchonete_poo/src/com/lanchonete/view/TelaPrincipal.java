@@ -9,6 +9,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.Color;
 
 public class TelaPrincipal extends JFrame {
 
@@ -109,5 +113,28 @@ public class TelaPrincipal extends JFrame {
 		});
 		btnSair.setBounds(358, 196, 130, 25);
 		contentPane.add(btnSair);
+		
+		JLabel lblSaborComPaixo = new JLabel("SABOR COM PAIXÃO");
+		lblSaborComPaixo.setForeground(new Color(153, 0, 51));
+		lblSaborComPaixo.setFont(new Font("Manjari Bold", Font.BOLD | Font.ITALIC, 16));
+		lblSaborComPaixo.setBounds(306, 42, 204, 32);
+		contentPane.add(lblSaborComPaixo);
+		
+		JLabel lblIgualA = new JLabel("É IGUAL A");
+		lblIgualA.setFont(new Font("Manjari Bold", Font.BOLD | Font.ITALIC, 16));
+		lblIgualA.setForeground(new Color(153, 0, 51));
+		lblIgualA.setBounds(391, 64, 109, 25);
+		contentPane.add(lblIgualA);
+		
+		JLabel lblSandubo = new JLabel("SANDUBÃO");
+		lblSandubo.setFont(new Font("Manjari Bold", Font.BOLD | Font.ITALIC, 18));
+		lblSandubo.setForeground(new Color(153, 0, 51));
+		lblSandubo.setBounds(374, 86, 126, 25);
+		contentPane.add(lblSandubo);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("img/principal.jpg"));
+		label.setBounds(6, -12, 482, 265);
+		contentPane.add(label);
 	}
 }
