@@ -36,6 +36,9 @@ public class TelaCadastroUsuario extends JFrame {
 	private JPasswordField passwordField;
 	private Usuario usuario;
 	private TelaInicial inicial;
+	private JComboBox cbSetor;
+	private JComboBox cbEmail;
+	
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
@@ -79,11 +82,11 @@ public class TelaCadastroUsuario extends JFrame {
 		ftfCpf.setBounds(101, 11, 338, 22);
 		contentPane.add(ftfCpf);
 		
-		JComboBox cbSetor = new JComboBox(new String[]{"ATENDIMENTO", "COZINHA", "CAIXA", "GERENCIA"});
+		cbSetor = new JComboBox(new String[]{"ATENDIMENTO", "COZINHA", "CAIXA", "GERENCIA"});
 		cbSetor.setBounds(101, 181, 338, 24);
 		contentPane.add(cbSetor);
 		
-		JComboBox cbEmail = new JComboBox(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
+		cbEmail = new JComboBox(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
 		cbEmail.setBounds(261, 67, 178, 24);
 		contentPane.add(cbEmail);
 		

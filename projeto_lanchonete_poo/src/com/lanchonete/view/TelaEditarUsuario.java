@@ -192,7 +192,6 @@ public class TelaEditarUsuario extends JFrame {
 				TelaPrincipal telaPrinc = new TelaPrincipal();
 				telaPrinc.setVisible(true);
 				dispose();
-//				setVisible(false);//com o dispose da errado a janela quarda as informações erradas
 			}
 		});
 		btnVoltar.setBounds(307, 213, 114, 25);

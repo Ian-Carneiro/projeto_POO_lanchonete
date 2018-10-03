@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -26,7 +25,6 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.UIManager;
 
 public class TelaInicial extends JFrame {
 
@@ -124,12 +122,12 @@ public class TelaInicial extends JFrame {
 		JLabel lblUsurio = new JLabel("Usuário");
 		lblUsurio.setBackground(Color.BLACK);
 		lblUsurio.setFont(new Font("Chilanka", Font.BOLD, 18));
-		lblUsurio.setForeground(new Color(153, 0, 0));
+//		lblUsurio.setForeground(new Color(153, 0, 0));
 		lblUsurio.setBounds(58, 195, 80, 20);
 		contentPane.add(lblUsurio);
 		
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setForeground(new Color(153, 0, 0));
+//		lblSenha.setForeground(new Color(153, 0, 0));
 		lblSenha.setFont(new Font("Chilanka", Font.BOLD, 18));
 		lblSenha.setBounds(58, 227, 66, 28);
 		contentPane.add(lblSenha);
@@ -142,6 +140,16 @@ public class TelaInicial extends JFrame {
 		label.setIcon(new ImageIcon("img/logo.png"));
 		label.setBounds(100, -59, 424, 313);
 		contentPane.add(label);
+		
+		JLabel lblLanchonete = new JLabel("Lanchonete");
+		lblLanchonete.setBounds(271, 65, 119, 31);
+		lblLanchonete.setFont(new Font("Chilanka", Font.BOLD, 18));
+		contentPane.add(lblLanchonete);
+		
+		JLabel lblOrientadaAoCaf = new JLabel("Orientada ao Café");
+		lblOrientadaAoCaf.setBounds(258, 119, 180, 25);
+		lblOrientadaAoCaf.setFont(new Font("Chilanka", Font.BOLD, 18));
+		contentPane.add(lblOrientadaAoCaf);
 	}
 	public static Usuario getAltenticado() {
 		return usuario;

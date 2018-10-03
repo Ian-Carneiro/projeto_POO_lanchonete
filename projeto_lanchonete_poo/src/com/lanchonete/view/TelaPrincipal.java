@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.UIManager;
 
 public class TelaPrincipal extends JFrame {
 
@@ -38,6 +39,7 @@ public class TelaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		
 		JButton btnCardpio = new JButton("Cardápio");
+		btnCardpio.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
 		btnCardpio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -47,10 +49,12 @@ public class TelaPrincipal extends JFrame {
 				
 			}
 		});
+		btnCardpio.setFont(new Font(null, 1, 12));
 		btnCardpio.setBounds(12, 125, 130, 25);
 		contentPane.add(btnCardpio);
 		
 		JButton btnMinhaConta = new JButton("Minha Conta");
+		btnMinhaConta.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
 		btnMinhaConta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -65,9 +69,11 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		btnMinhaConta.setBounds(358, 125, 130, 25);
+		btnMinhaConta.setFont(new Font(null, 1, 12));
 		contentPane.add(btnMinhaConta);
 		
 		JButton btnMesa = new JButton("Mesas");
+		btnMesa.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
 		btnMesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				telaMesa = new TelaMesa();
@@ -76,9 +82,11 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		btnMesa.setBounds(185, 125, 130, 25);
+		btnMesa.setFont(new Font(null, 1, 12));
 		contentPane.add(btnMesa);
 		
 		JButton btnCozinha = new JButton("Cozinha");
+		btnCozinha.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
 		btnCozinha.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				telaCozinha = new TelaCozinha();
@@ -87,9 +95,11 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		btnCozinha.setBounds(12, 196, 130, 25);
+		btnCozinha.setFont(new Font(null, 1, 12));
 		contentPane.add(btnCozinha);
 		
 		JButton btnGerncia = new JButton("Gerência");
+		btnGerncia.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
 		btnGerncia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -101,9 +111,11 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		btnGerncia.setBounds(185, 196, 130, 25);
+		btnGerncia.setFont(new Font(null, 1, 12));
 		contentPane.add(btnGerncia);
 		
 		JButton btnSair = new JButton("Sair");
+		btnSair.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inicial = new TelaInicial();
@@ -112,29 +124,26 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		btnSair.setBounds(358, 196, 130, 25);
+		btnSair.setFont(new Font(null, 1, 12));
 		contentPane.add(btnSair);
 		
-		JLabel lblSaborComPaixo = new JLabel("SABOR COM PAIXÃO");
-		lblSaborComPaixo.setForeground(new Color(153, 0, 51));
-		lblSaborComPaixo.setFont(new Font("Manjari Bold", Font.BOLD | Font.ITALIC, 16));
-		lblSaborComPaixo.setBounds(306, 42, 204, 32);
-		contentPane.add(lblSaborComPaixo);
-		
-		JLabel lblIgualA = new JLabel("É IGUAL A");
-		lblIgualA.setFont(new Font("Manjari Bold", Font.BOLD | Font.ITALIC, 16));
-		lblIgualA.setForeground(new Color(153, 0, 51));
-		lblIgualA.setBounds(391, 64, 109, 25);
-		contentPane.add(lblIgualA);
-		
-		JLabel lblSandubo = new JLabel("SANDUBÃO");
-		lblSandubo.setFont(new Font("Manjari Bold", Font.BOLD | Font.ITALIC, 18));
-		lblSandubo.setForeground(new Color(153, 0, 51));
-		lblSandubo.setBounds(374, 86, 126, 25);
-		contentPane.add(lblSandubo);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon("img/principal.jpg"));
 		label.setBounds(6, -12, 482, 265);
 		contentPane.add(label);
+		
+		JLabel lblNewLabel = new JLabel("Image designed by macrovector / Freepik");
+		lblNewLabel.setFont(new Font(null, 1, 9));
+		lblNewLabel.setBounds(286, 257, 202, 15);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblLanchone = new JLabel("Lanchone");
+		lblLanchone.setBounds(286, 12, 66, 15);
+		contentPane.add(lblLanchone);
+		
+		JLabel lblOrientadaAoCaf = new JLabel("Orientada ao Café");
+		lblOrientadaAoCaf.setBounds(296, 39, 130, 15);
+		contentPane.add(lblOrientadaAoCaf);
 	}
 }

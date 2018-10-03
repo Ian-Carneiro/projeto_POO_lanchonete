@@ -14,7 +14,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;

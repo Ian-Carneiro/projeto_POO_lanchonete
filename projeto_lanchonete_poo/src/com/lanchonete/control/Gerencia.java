@@ -18,10 +18,7 @@ import java.time.LocalDate;
  * @version 1.0
  **/
 public class Gerencia extends DaoListGenerico{
-	/**
-	 * Lista de mesas
-	 * **/
-//	private static List<Comanda> gerencia = new ArrayList<>();
+
 	private static File file = new File("Comanda");
 	
 	/**

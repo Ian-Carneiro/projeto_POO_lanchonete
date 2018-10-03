@@ -20,14 +20,11 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 
 public class TelaGerencia extends JFrame {
 

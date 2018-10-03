@@ -26,6 +26,7 @@ public class TelaAlterarPedido extends JFrame {
 
 	private JPanel contentPane;
 	private TelaMesa telaMesa;
+	private TelaVerPedidos telaVerPedidos;
 	/**
 	 * Create the frame.
 	 * @throws IOException 
@@ -110,6 +111,19 @@ public class TelaAlterarPedido extends JFrame {
 		contentPane.add(btnExcluir);
 		
 		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					telaVerPedidos = new TelaVerPedidos();
+					telaVerPedidos.setVisible(true);
+					dispose();
+					
+				} catch (ClassNotFoundException | IOException e) {
+					JOptionPane.showMessageDialog(null, "Erro", "Falha", JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}
+		});
 		btnNewButton.setBounds(12, 295, 114, 25);
 		contentPane.add(btnNewButton);
 	}
