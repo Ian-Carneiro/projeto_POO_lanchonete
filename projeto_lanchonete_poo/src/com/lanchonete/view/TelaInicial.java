@@ -139,7 +139,7 @@ public class TelaInicial extends JFrame {
 		contentPane.add(passwordField);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("/home/leanderson/Documentos/workspace-eclypse/projeto_POO_lanchonete/projeto_lanchonete_poo/img/logo.png"));
+		label.setIcon(new ImageIcon("img/logo.png"));
 		label.setBounds(100, -59, 424, 313);
 		contentPane.add(label);
 	}
