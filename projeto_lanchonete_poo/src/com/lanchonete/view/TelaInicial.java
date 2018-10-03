@@ -23,6 +23,10 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.UIManager;
 
 public class TelaInicial extends JFrame {
 
@@ -38,6 +42,12 @@ public class TelaInicial extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+		                if ("Nimbus".equals(info.getName())) {
+		                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+		                    break;
+		                }
+		            }
 					TelaInicial frame = new TelaInicial();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -50,7 +60,7 @@ public class TelaInicial extends JFrame {
 	public TelaInicial() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 387);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,6 +69,7 @@ public class TelaInicial extends JFrame {
 		
 		
 		JButton btnCriar = new JButton("Criar nova conta");
+		btnCriar.setFont(new Font("Chilanka", Font.BOLD, 14));
 		btnCriar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
@@ -70,10 +81,11 @@ public class TelaInicial extends JFrame {
 				cadastroUsuario.setVisible(true);
 			}
 		});
-		btnCriar.setBounds(141, 202, 162, 25);
+		btnCriar.setBounds(154, 310, 162, 25);
 		contentPane.add(btnCriar);
 		
 		btnAutenticar = new JButton("Autenticar");
+		btnAutenticar.setFont(new Font("Chilanka", Font.BOLD, 14));
 		btnAutenticar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -100,26 +112,36 @@ public class TelaInicial extends JFrame {
 			}			
 		});
 
-		btnAutenticar.setBounds(162, 171, 114, 25);
+		btnAutenticar.setBounds(175, 279, 114, 25);
 		contentPane.add(btnAutenticar);
 		getRootPane().setDefaultButton(btnAutenticar);
 		
 		tfUsuario = new JTextField();
-		tfUsuario.setBounds(129, 87, 251, 25);
+		tfUsuario.setBounds(139, 190, 251, 30);
 		contentPane.add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
 		JLabel lblUsurio = new JLabel("Usuário");
-		lblUsurio.setBounds(45, 92, 66, 15);
+		lblUsurio.setBackground(Color.BLACK);
+		lblUsurio.setFont(new Font("Chilanka", Font.BOLD, 18));
+		lblUsurio.setForeground(new Color(153, 0, 0));
+		lblUsurio.setBounds(58, 195, 80, 20);
 		contentPane.add(lblUsurio);
 		
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(45, 132, 66, 15);
+		lblSenha.setForeground(new Color(153, 0, 0));
+		lblSenha.setFont(new Font("Chilanka", Font.BOLD, 18));
+		lblSenha.setBounds(58, 227, 66, 28);
 		contentPane.add(lblSenha);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(129, 127, 251, 25);
+		passwordField.setBounds(139, 227, 251, 30);
 		contentPane.add(passwordField);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon("/home/leanderson/Documentos/workspace-eclypse/projeto_POO_lanchonete/projeto_lanchonete_poo/img/logo.png"));
+		label.setBounds(100, -59, 424, 313);
+		contentPane.add(label);
 	}
 	public static Usuario getAltenticado() {
 		return usuario;
