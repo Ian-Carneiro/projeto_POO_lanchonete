@@ -3,6 +3,7 @@ package com.lanchonete.view;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -77,41 +78,45 @@ public class TelaGerencia extends JFrame {
 		scrollPane.setViewportView(table_1);
 		
 		JLabel lblR = new JLabel("R$");
-		lblR.setBounds(372, 210, 66, 15);
+		lblR.setBounds(367, 210, 66, 15);
 		contentPane.add(lblR);
 		
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ftfDI.getText();
-				ftfDF.getText();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate di = LocalDate.parse(ftfDI.getText(), formatter);
-				LocalDate df = LocalDate.parse(ftfDF.getText(), formatter);
-				if(di.isAfter(df)) {
-					JOptionPane.showMessageDialog(null, "Informe corretamente o intervalo de datas!");
-				}else {
-					ArrayList<Comanda> comandas = Gerencia.listarComandasEntre(di, df);
-					if(comandas.isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Comandas não encontradas");
+				try {
+					ftfDI.getText();
+					ftfDF.getText();
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate di = LocalDate.parse(ftfDI.getText(), formatter);
+					LocalDate df = LocalDate.parse(ftfDF.getText(), formatter);
+					if(di.isAfter(df)) {
+						JOptionPane.showMessageDialog(null, "Informe corretamente o intervalo de datas!");
 					}else {
-						int quantRows = model.getRowCount();
-						if(quantRows>0) {
-							for(int i = 0;i < quantRows;i++) {
-								model.removeRow(0);
+						ArrayList<Comanda> comandas = Gerencia.listarComandasEntre(di, df);
+						if(comandas.isEmpty()) {
+							JOptionPane.showMessageDialog(null, "Comandas não encontradas");
+						}else {
+							int quantRows = model.getRowCount();
+							if(quantRows>0) {
+								for(int i = 0;i < quantRows;i++) {
+									model.removeRow(0);
+								}
 							}
+							for(Comanda c:comandas) {
+								model.addRow(new String[]{c.getData().toString(), "Comanda "+c.getContador(), c.valorTotal()+" R$"});	
+							}
+							lblR.setText(Gerencia.lucroTotalEntre(di, df)+" R$");
+		//					scrollPane.setViewportView(table_1);
 						}
-						for(Comanda c:comandas) {
-							model.addRow(new String[]{c.getData().toString(), "Comanda "+c.getContador(), c.valorTotal()+" R$"});	
-						}
-						lblR.setText(Gerencia.lucroTotalEntre(di, df)+" R$");
-//						scrollPane.setViewportView(table_1);
 					}
+				}catch (DateTimeParseException ex) {
+					JOptionPane.showMessageDialog(null, "Preencha com datas válidas", "Formato inválido", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		btnBuscar.setBounds(235, 235, 114, 25);
+		btnBuscar.setBounds(235, 221, 114, 25);
 		contentPane.add(btnBuscar);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -121,7 +126,7 @@ public class TelaGerencia extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(59, 235, 114, 25);
+		btnVoltar.setBounds(109, 221, 114, 25);
 		contentPane.add(btnVoltar);
 		
 		

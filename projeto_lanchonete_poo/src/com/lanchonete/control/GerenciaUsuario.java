@@ -3,10 +3,12 @@ package com.lanchonete.control;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.lanchonete.dao.DaoMapGenerico;
+import com.lanchonete.exception.DataNascimentoException;
 import com.lanchonete.model.Usuario;
 
 /**
@@ -30,9 +32,13 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 	 * @throws IOException 
 	 * @throws ClassNotFoundException 
 	 * @throws FileNotFoundException 
+	 * @throws DataNascimentoException 
 	 * */
-	public static boolean adicionarLogin(Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static boolean adicionarLogin(Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException {
 		HashMap<String, Usuario> usuarios = getEstrutura(file);
+		if(usuario.getNascimento().isAfter(LocalDate.now())) {
+			throw new DataNascimentoException();
+		}
 		if(buscarUsuario(usuario.getEmail())==null) {//verifica se ja nao existe o usuario
 			usuarios.put(usuario.getEmail(), usuario);
 			push(usuarios, file);
@@ -66,11 +72,15 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 	 * @throws IOException 
 	 * @throws ClassNotFoundException 
 	 * @throws FileNotFoundException 
+	 * @throws DataNascimentoException 
 	 * */
 	//recebe um email por fora porque se for buscar pelo email do usuario(usuario editado) passado
 	//pode acontecer do email dele ter sido mudado: Busca pelo email antigo
-	public static boolean editarUsuario(String email, Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static boolean editarUsuario(String email, Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException {
 		if(buscarUsuario(email)!=null) {//verifica se so usuario que vai ser editado existe
+			if(usuario.getNascimento().isAfter(LocalDate.now())) {
+				throw new DataNascimentoException();
+			}
 			removerLogin(email);//apaga o usuario antigo
 			return adicionarLogin(usuario);//adiciona o usuario editado
 		}

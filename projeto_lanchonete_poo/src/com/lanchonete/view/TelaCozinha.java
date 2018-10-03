@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.lanchonete.exception.ValorNegativoException;
 import com.lanchonete.model.Cozinha;
 import com.lanchonete.model.Pedido;
 
@@ -51,11 +52,14 @@ public class TelaCozinha extends JFrame {
 						dispose();
 						new TelaCozinha().setVisible(true);
 					}else {
-						JOptionPane.showMessageDialog(null, "Não houve alteração!");
+						JOptionPane.showMessageDialog(null, "Não existe pedidos para atender!");
 					}
-				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
-					JOptionPane.showMessageDialog(null, "Falha ao atender pedido", "Falha", JOptionPane.ERROR_MESSAGE);
-
+				} catch(IOException ex) {
+					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Preencha com um valor númerico", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch (HeadlessException | ClassNotFoundException e1) {
+					JOptionPane.showMessageDialog(null, "Falha na operação de Salvar", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

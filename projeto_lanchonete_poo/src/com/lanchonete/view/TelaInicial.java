@@ -68,7 +68,7 @@ public class TelaInicial extends JFrame {
 				cadastroUsuario.setVisible(true);
 			}
 		});
-		btnCriar.setBounds(150, 235, 162, 25);
+		btnCriar.setBounds(141, 202, 162, 25);
 		contentPane.add(btnCriar);
 		
 		JButton btnAltenticar = new JButton("Autenticar");
@@ -84,6 +84,7 @@ public class TelaInicial extends JFrame {
 						
 					}else {
 						JOptionPane.showMessageDialog(null, "Não Foi possível altenticar");
+						passwordField.setText("");
 					}
 				} catch (HeadlessException e1) {
 					System.out.println("HeadlessException");
@@ -96,24 +97,24 @@ public class TelaInicial extends JFrame {
 				}
 			}			
 		});
-		btnAltenticar.setBounds(173, 198, 114, 25);
+		btnAltenticar.setBounds(162, 171, 114, 25);
 		contentPane.add(btnAltenticar);
 		
 		tfUsuario = new JTextField();
-		tfUsuario.setBounds(94, 98, 297, 25);
+		tfUsuario.setBounds(129, 87, 251, 25);
 		contentPane.add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
 		JLabel lblUsurio = new JLabel("Usuário");
-		lblUsurio.setBounds(24, 100, 66, 15);
+		lblUsurio.setBounds(45, 92, 66, 15);
 		contentPane.add(lblUsurio);
 		
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(24, 149, 66, 15);
+		lblSenha.setBounds(45, 132, 66, 15);
 		contentPane.add(lblSenha);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(94, 147, 297, 25);
+		passwordField.setBounds(129, 127, 251, 25);
 		contentPane.add(passwordField);
 	}
 	public static Usuario getAltenticado() {

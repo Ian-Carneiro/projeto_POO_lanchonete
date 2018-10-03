@@ -29,20 +29,20 @@ public class TelaMesa extends JFrame {
 	public TelaMesa() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 200);
+		setBounds(100, 100, 509, 221);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JLabel lblMesa = new JLabel("Mesa");
-		lblMesa.setBounds(12, 12, 66, 15);
+		JLabel lblMesa = new JLabel("MESA");
+		lblMesa.setBounds(40, 17, 42, 15);
 		contentPane.add(lblMesa);
 		
 		JSpinner spinnerMesa = new JSpinner();
 		spinnerMesa.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-		spinnerMesa.setBounds(74, 10, 364, 25);
+		spinnerMesa.setBounds(84, 12, 364, 25);
 		contentPane.add(spinnerMesa);
 		
 		JButton btnNovaComanda = new JButton("Nova comanda");
@@ -89,7 +89,7 @@ public class TelaMesa extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					if(GerenciaMesa.verPedidos((Integer)spinnerMesa.getValue())=="") {
-						JOptionPane.showMessageDialog(null, "Não foram feitos pedidos");
+						JOptionPane.showMessageDialog(null, "A comanda não foi criada!");
 					}else{
 						mesa = (Integer)spinnerMesa.getValue();//static
 						telaVerPedidos = new TelaVerPedidos();
@@ -111,21 +111,17 @@ public class TelaMesa extends JFrame {
 				Comanda c = null;
 				try {
 					c = GerenciaMesa.getComanda((Integer)spinnerMesa.getValue());
-				} catch (ClassNotFoundException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				try {
 					if(c!=null && GerenciaMesa.encerrarComanda(c.getMesa())) {
 						JOptionPane.showMessageDialog(null, "Comanda encerrada com sucesso!\n" +"Valor Total:"
 								+ c.valorTotal());
 					}
 					else {
-						JOptionPane.showMessageDialog(null, "Não houve alterações!");
+						JOptionPane.showMessageDialog(null, "A comanda não existe ou seus pedidos não foram atendidos");
 					}
-				} catch (HeadlessException | ClassNotFoundException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				}catch (HeadlessException | ClassNotFoundException ex) {
+					JOptionPane.showMessageDialog(null, "Falha na operação Encerrar Comanda", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(IOException ex) {
+					JOptionPane.showMessageDialog(null, "Falha no acesso ao arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

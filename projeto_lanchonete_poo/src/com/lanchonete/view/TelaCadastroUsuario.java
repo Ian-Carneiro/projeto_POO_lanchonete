@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import com.lanchonete.control.GerenciaUsuario;
+import com.lanchonete.exception.DataNascimentoException;
 import com.lanchonete.model.Usuario;
 
 import javax.swing.JLabel;
@@ -125,12 +126,18 @@ public class TelaCadastroUsuario extends JFrame {
 					inicial = new TelaInicial();
 					inicial.setVisible(true);
 					addUsuarioGerenciaUsuario(usuario);
-				} catch (HeadlessException | ClassNotFoundException | IOException | DateTimeParseException e) {
+				} catch (HeadlessException | ClassNotFoundException  e) {
 					JOptionPane.showMessageDialog(null, "Falha na operação de Novo Cadastro", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(DataNascimentoException ex) {
+					JOptionPane.showMessageDialog(null, "Data de nascimento após a data atual", "Data de nascimento inválida", JOptionPane.ERROR_MESSAGE);
+				}catch(IOException ex) {
+					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(DateTimeParseException e) {
+					JOptionPane.showMessageDialog(null, "Data fornecida é inválida", "Data inválida", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		btnSalvar.setBounds(299, 235, 114, 25);
+		btnSalvar.setBounds(111, 226, 114, 25);
 		contentPane.add(btnSalvar);
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -141,14 +148,14 @@ public class TelaCadastroUsuario extends JFrame {
 				dispose();
 			}
 		});
-		btnVoltar.setBounds(39, 235, 114, 25);
+		btnVoltar.setBounds(250, 226, 114, 25);
 		contentPane.add(btnVoltar);
 	}
-	public void addUsuarioGerenciaUsuario(Usuario u) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void addUsuarioGerenciaUsuario(Usuario u) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException {
 		if(GerenciaUsuario.adicionarLogin(u)) {
 			JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 		}else {
-			JOptionPane.showMessageDialog(null, "Usuário não cadastrado!");
+			JOptionPane.showMessageDialog(null, "Já existe um usuário com este Email!");
 		}
 	}
 }

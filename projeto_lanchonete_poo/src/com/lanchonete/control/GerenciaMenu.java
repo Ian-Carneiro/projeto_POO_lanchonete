@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.lanchonete.dao.DaoListGenerico;
+import com.lanchonete.exception.ValorNegativoException;
 import com.lanchonete.model.Produto;
 /**
  * A classe GerenciaMenu possui métodos para criar, ler, atualizar e deletar produtos de um cardápio.
@@ -70,9 +71,12 @@ public class GerenciaMenu extends DaoListGenerico<Produto>{
 	 * @throws IOException 
 	 * @throws ClassNotFoundException 
 	 * @throws FileNotFoundException 
+	 * @throws ValorNegativoException 
 	 * */
-	public static boolean adicionarProduto(Produto produto) throws FileNotFoundException, ClassNotFoundException, IOException{
+	public static boolean adicionarProduto(Produto produto) throws FileNotFoundException, ClassNotFoundException, IOException, ValorNegativoException{
 		ArrayList<Produto> produtos = (getEstrutura(file));
+		if(produto.getPreco()<0)
+			throw new ValorNegativoException();
 		if(buscarProduto(produto.getCodigo()) >=0 ) {
 			return false;//Produto com codigo ja cadastrado
 		}
@@ -105,8 +109,9 @@ public class GerenciaMenu extends DaoListGenerico<Produto>{
 	 * @throws IOException 
 	 * @throws ClassNotFoundException 
 	 * @throws FileNotFoundException 
+	 * @throws ValorNegativoException 
 	 * */
-	public static boolean editarProduto(int codigo, Produto produto) throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static boolean editarProduto(int codigo, Produto produto) throws FileNotFoundException, ClassNotFoundException, IOException, ValorNegativoException {
 		if(buscarProduto(codigo)<0)//verifica se o produto existe para ser editado
 			return false;
 		produto.setCodigo(codigo);//garante que o produto editado(novo produto) tenha o mesmo codigo

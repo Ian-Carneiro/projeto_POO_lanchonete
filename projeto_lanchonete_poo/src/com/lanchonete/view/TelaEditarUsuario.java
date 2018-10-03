@@ -3,6 +3,7 @@ package com.lanchonete.view;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import com.lanchonete.control.GerenciaUsuario;
+import com.lanchonete.exception.DataNascimentoException;
 import com.lanchonete.model.Usuario;
 
 import javax.swing.JLabel;
@@ -19,6 +21,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -137,16 +140,32 @@ public class TelaEditarUsuario extends JFrame {
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate ld = LocalDate.parse(ftfData.getText(), formatter);
-				Usuario u = new Usuario(ftfCpf.getText(), tfNome.getText(),
-						tfEmail.getText()+cbEmail.getSelectedItem(), new String(passwordField.getPassword()),
-						ftfTelefone.getText(), ld, (String)cbSetor.getSelectedItem());
-				editarUsuarioGerenciaUsuario(TelaInicial.getAltenticado().getEmail(), u);
-				TelaInicial.setAltenticado(u);
-				telaPrincipal = new TelaPrincipal();
-				telaPrincipal.setVisible(true);
-				dispose();
+				try {
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					LocalDate ld = LocalDate.parse(ftfData.getText(), formatter);
+					if(ld.isAfter(LocalDate.now())) {
+						String[] s = TelaInicial.getAltenticado().getNascimento().toString().split("-");
+						ftfData.setText(s[2]+s[1]+s[0]);
+						throw new DataNascimentoException();
+					}
+						
+					Usuario u = new Usuario(ftfCpf.getText(), tfNome.getText(),
+							tfEmail.getText()+cbEmail.getSelectedItem(), new String(passwordField.getPassword()),
+							ftfTelefone.getText(), ld, (String)cbSetor.getSelectedItem());
+					editarUsuarioGerenciaUsuario(TelaInicial.getAltenticado().getEmail(), u);
+					TelaInicial.setAltenticado(u);
+					telaPrincipal = new TelaPrincipal();
+					telaPrincipal.setVisible(true);
+					setVisible(false);
+				}catch(DateTimeParseException ex){
+					JOptionPane.showMessageDialog(null, "Formato de data inválido!", "Campo inválido", JOptionPane.ERROR_MESSAGE);
+				}catch (HeadlessException | ClassNotFoundException ex) {
+					JOptionPane.showMessageDialog(null, "Falha ao editar usuário", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(IOException ex) {
+					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
+				} catch (DataNascimentoException e1) {
+					JOptionPane.showMessageDialog(null, "Data de nascimento após a data atual", "Data de nascimento inválida", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnSalvar.setBounds(55, 213, 114, 25);
@@ -173,20 +192,18 @@ public class TelaEditarUsuario extends JFrame {
 				TelaPrincipal telaPrinc = new TelaPrincipal();
 				telaPrinc.setVisible(true);
 				dispose();
+//				setVisible(false);//com o dispose da errado a janela quarda as informações erradas
 			}
 		});
 		btnVoltar.setBounds(307, 213, 114, 25);
 		contentPane.add(btnVoltar);
 	}
-	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) {
-		try {
-			if(GerenciaUsuario.editarUsuario(email, usuario)) {
-				JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");
-			}else {
-				JOptionPane.showMessageDialog(null, "Não houve alterações!");
-			}
-		} catch (HeadlessException | ClassNotFoundException | IOException e) {
-			JOptionPane.showMessageDialog(null, "Falha ao editar usuário", "Falha", JOptionPane.ERROR_MESSAGE);
+	//deve apenas lançar, se tratar as exceções aqui é gerado erro "lógico"
+	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException {
+		if(GerenciaUsuario.editarUsuario(email, usuario)) {
+			JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");
+		}else {
+			JOptionPane.showMessageDialog(null, "Foi aqui!");
 		}
 	}
 	public void removerUsuarioGerenciaUsuario(String email) {

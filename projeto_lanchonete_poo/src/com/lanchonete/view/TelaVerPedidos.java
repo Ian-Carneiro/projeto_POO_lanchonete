@@ -36,7 +36,7 @@ public class TelaVerPedidos extends JFrame {
 		setTitle("Pedidos");//<<<<<<<<<<<<<<<<<<<<<<<<
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 510, 307);
+		setBounds(100, 100, 557, 317);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,12 +56,12 @@ public class TelaVerPedidos extends JFrame {
 		listPedidos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listPedidos.setModel(listModel);
 		listPedidos.setSelectedIndex(0);
-		listPedidos.setBounds(12, 0, 467, 187);
+		listPedidos.setBounds(12, 0, 532, 187);
 		contentPane.add(listPedidos);
 		
 		JLabel lblTotal = new JLabel("Total: R$ "+GerenciaMesa.getComanda(TelaMesa.getMesa()).valorTotal());
 		lblTotal.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblTotal.setBounds(238, 199, 225, 15);
+		lblTotal.setBounds(268, 199, 225, 15);
 		contentPane.add(lblTotal);
 		
 		JButton btnOk = new JButton("Ok");
@@ -72,7 +72,7 @@ public class TelaVerPedidos extends JFrame {
 				dispose();
 			}
 		});
-		btnOk.setBounds(79, 226, 114, 25);
+		btnOk.setBounds(154, 226, 114, 25);
 		contentPane.add(btnOk);
 		
 		JButton btnEditar = new JButton("Editar");
@@ -88,7 +88,7 @@ public class TelaVerPedidos extends JFrame {
 				}
 			}
 		});
-		btnEditar.setBounds(273, 226, 114, 25);
+		btnEditar.setBounds(290, 226, 114, 25);
 		contentPane.add(btnEditar);
 	}
 	public static Pedido getPedido() throws FileNotFoundException, ClassNotFoundException, IOException {

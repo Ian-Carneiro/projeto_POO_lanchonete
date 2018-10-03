@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.lanchonete.control.GerenciaMenu;
+import com.lanchonete.exception.ValorNegativoException;
 import com.lanchonete.model.Produto;
 
 import javax.swing.JLabel;
@@ -47,11 +48,11 @@ public class TelaCardapio extends JFrame{
 		contentPane.setLayout(null);
 		setLocationRelativeTo(telaPrincipal);
 		
-		JLabel lblCdigo = new JLabel("Código");
+		JLabel lblCdigo = new JLabel("Código*");
 		lblCdigo.setBounds(12, 41, 66, 15);
 		contentPane.add(lblCdigo);
 		
-		lblNome = new JLabel("Nome");
+		lblNome = new JLabel("Nome*");
 		lblNome.setBounds(12, 83, 66, 15);
 		contentPane.add(lblNome);
 		
@@ -67,7 +68,7 @@ public class TelaCardapio extends JFrame{
 		tfNome.setBounds(107, 78, 318, 25);
 		contentPane.add(tfNome);
 		tfNome.setColumns(10);
-		JLabel lblPreo = new JLabel("Preço");
+		JLabel lblPreo = new JLabel("Preço*");
 		lblPreo.setBounds(12, 328, 66, 15);
 		contentPane.add(lblPreo);
 		
@@ -109,16 +110,23 @@ public class TelaCardapio extends JFrame{
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				try {
-					if(GerenciaMenu.adicionarProduto(new Produto((Integer)spinnerCodigo.getValue(), tfNome.getText(),
-							tpDescricao.getText(), Float.parseFloat(tfPreco.getText())))) {
-						JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+					if(tfNome.getText().equals("") || tfPreco.getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "É necessário preencher os campos obrigatórios", "Falha", JOptionPane.ERROR_MESSAGE);
 						limpaCapos();
-						
+					}else if(GerenciaMenu.adicionarProduto(new Produto((Integer)spinnerCodigo.getValue(), tfNome.getText(),
+							tpDescricao.getText(), Float.parseFloat(tfPreco.getText())))) {
+							JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+							limpaCapos();
 					}else {
 						JOptionPane.showMessageDialog(null, "Produto não cadastrado!");
 					}
-				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
-					// TODO Auto-generated catch block
+				}catch(IOException ex) {
+					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Preencha com um valor númerico", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(ValorNegativoException ex) {
+					JOptionPane.showMessageDialog(null, "Valor inválido para preço!", "Falha", JOptionPane.ERROR_MESSAGE);
+				} catch (HeadlessException | ClassNotFoundException e1) {
 					JOptionPane.showMessageDialog(null, "Falha na operação de Salvar", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -136,8 +144,10 @@ public class TelaCardapio extends JFrame{
 					}else {
 						JOptionPane.showMessageDialog(null, "Não houve alteração!");
 					}
-				} catch (HeadlessException | ClassNotFoundException | IOException e1) {
+				} catch (HeadlessException | ClassNotFoundException ex) {
 					JOptionPane.showMessageDialog(null, "Falha na operação de Excluir", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(IOException ex) {
+					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -155,8 +165,14 @@ public class TelaCardapio extends JFrame{
 					}else {
 						JOptionPane.showMessageDialog(null, "Não houve alterações!");
 					}
-				} catch (NumberFormatException | HeadlessException | ClassNotFoundException | IOException e1) {
+				}catch (ClassNotFoundException  ex) {
 					JOptionPane.showMessageDialog(null, "Falha na operação de Editar", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(ValorNegativoException ex) {
+					JOptionPane.showMessageDialog(null, "Valor negativo! Valor inválido para preço!", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(IOException ex) {
+					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
+				}catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Valor numerico inválido para conversão", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -171,7 +187,7 @@ public class TelaCardapio extends JFrame{
 				dispose();
 			}
 		});
-		btnNewButton_1.setBounds(25, 435, 400, 25);
+		btnNewButton_1.setBounds(25, 419, 400, 25);
 		contentPane.add(btnNewButton_1);
 		
 	}
