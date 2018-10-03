@@ -115,9 +115,10 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 	 * */
 	public static Usuario buscarUsuario(String email) throws FileNotFoundException, ClassNotFoundException, IOException {
 		HashMap<String, Usuario> usuarios = getEstrutura(file);
-		if(usuarios.isEmpty())
+		Usuario u = usuarios.get(email);
+		if(usuarios.isEmpty() || u == null)
 			return null;
-		return usuarios.get(email);
+		return u;
 	}
 
 }
