@@ -27,6 +27,7 @@ public class TelaMesa extends JFrame {
 	private static Integer mesa;
 
 	public TelaMesa() {
+		setTitle("Mesa");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 509, 221);

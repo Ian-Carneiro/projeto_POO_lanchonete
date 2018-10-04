@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import com.lanchonete.control.GerenciaUsuario;
+import com.lanchonete.exception.CampoVazioException;
 import com.lanchonete.exception.DataNascimentoException;
 import com.lanchonete.model.Usuario;
 
@@ -49,11 +50,11 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JLabel lblCpf = new JLabel("CPF");
+		JLabel lblCpf = new JLabel("CPF *");
 		lblCpf.setBounds(11, 15, 84, 15);
 		contentPane.add(lblCpf);
 		
-		JLabel lblNome = new JLabel("Nome");
+		JLabel lblNome = new JLabel("Nome *");
 		lblNome.setBounds(11, 43, 84, 15);
 		contentPane.add(lblNome);
 		
@@ -61,26 +62,26 @@ public class TelaEditarUsuario extends JFrame {
 		lblTelefone.setBounds(11, 129, 58, 15);
 		contentPane.add(lblTelefone);
 		
-		JLabel lblNascimento = new JLabel("Nascimento");
-		lblNascimento.setBounds(11, 157, 84, 15);
+		JLabel lblNascimento = new JLabel("Nascimento *");
+		lblNascimento.setBounds(11, 157, 103, 15);
 		contentPane.add(lblNascimento);
 		
 		JLabel lblSetor = new JLabel("Setor");
 		lblSetor.setBounds(11, 186, 84, 15);
 		contentPane.add(lblSetor);
 		
-		JLabel lblEmail = new JLabel("E-mail");
+		JLabel lblEmail = new JLabel("E-mail *");
 		lblEmail.setBounds(11, 72, 84, 15);
 		contentPane.add(lblEmail);
 		
-		JLabel lblSenha = new JLabel("Senha");
+		JLabel lblSenha = new JLabel("Senha *");
 		lblSenha.setBounds(11, 101, 84, 15);
 		contentPane.add(lblSenha);
 		
 		
 		ftfCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 		ftfCpf.setText(TelaInicial.getAltenticado().getCpf());
-		ftfCpf.setBounds(101, 11, 338, 22);
+		ftfCpf.setBounds(122, 11, 317, 22);
 		contentPane.add(ftfCpf);
 		
 		String[] s1 = {"ATENDIMENTO", "COZINHA", "CAIXA", "GERENCIA"};
@@ -97,46 +98,46 @@ public class TelaEditarUsuario extends JFrame {
 		
 		tfNome = new JTextField();
 		tfNome.setText(TelaInicial.getAltenticado().getNome());
-		tfNome.setBounds(101, 39, 338, 22);
+		tfNome.setBounds(121, 39, 317, 22);
 		contentPane.add(tfNome);
 		tfNome.setColumns(10);
 		
 		JFormattedTextField ftfTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
 		ftfTelefone.setText(TelaInicial.getAltenticado().getTelefone());
-		ftfTelefone.setBounds(101, 125, 338, 22);
+		ftfTelefone.setBounds(121, 125, 318, 22);
 		contentPane.add(ftfTelefone);
 		
 		JFormattedTextField ftfData = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		String[] s = TelaInicial.getAltenticado().getNascimento().toString().split("-");
 		ftfData.setText(s[2]+s[1]+s[0]);
-		ftfData.setBounds(101, 153, 338, 22);
+		ftfData.setBounds(121, 153, 318, 22);
 		contentPane.add(ftfData);
 		
-		String senha = TelaInicial.getAltenticado().getEmail();
-		String[] partesSenha = senha.split("@");
+		String email = TelaInicial.getAltenticado().getEmail();
+		String[] partesEmail = email.split("@");
 		
 		tfEmail = new JTextField();
-		tfEmail.setText(partesSenha[0]);
-		tfEmail.setBounds(101, 67, 148, 24);
+		tfEmail.setText(partesEmail[0]);
+		tfEmail.setBounds(121, 67, 124, 24);
 		contentPane.add(tfEmail);
 		tfEmail.setColumns(10);
 		
 		cbEmail = new JComboBox(new String[]{"@gmail.com", "@outlook.com", "@hotmail.com"});
-		String[] s2 = {"gmail.com", "outlook.com", "email.com"};
+		String[] s2 = {"gmail.com", "outlook.com", "hotmail.com"};
 		for(i = 0; i<s2.length; i++) {
-			if(s2[i].equals(partesSenha[1])) {//ta dando  ArrayIndexOutOfBoundsException
+			if(s2[i].equals(partesEmail[1])) {
 				break;
 			}
 		}
+		System.out.println(i);
 		cbEmail.setSelectedIndex(i);
 		cbEmail.setBounds(261, 67, 178, 24);
 		contentPane.add(cbEmail);
 		
 		passwordField = new JPasswordField();
 		passwordField.setText(TelaInicial.getAltenticado().getSenha());
-		passwordField.setBounds(101, 97, 338, 22);
+		passwordField.setBounds(121, 97, 318, 22);
 		contentPane.add(passwordField);
-		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -148,7 +149,6 @@ public class TelaEditarUsuario extends JFrame {
 						ftfData.setText(s[2]+s[1]+s[0]);
 						throw new DataNascimentoException();
 					}
-						
 					Usuario u = new Usuario(ftfCpf.getText(), tfNome.getText(),
 							tfEmail.getText()+cbEmail.getSelectedItem(), new String(passwordField.getPassword()),
 							ftfTelefone.getText(), ld, (String)cbSetor.getSelectedItem());
@@ -165,6 +165,8 @@ public class TelaEditarUsuario extends JFrame {
 					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
 				} catch (DataNascimentoException e1) {
 					JOptionPane.showMessageDialog(null, "Data de nascimento após a data atual", "Data de nascimento inválida", JOptionPane.ERROR_MESSAGE);
+				} catch (CampoVazioException e1) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!", "Campos vazios", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -198,11 +200,11 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(btnVoltar);
 	}
 	//deve apenas lançar, se tratar as exceções aqui é gerado erro "lógico"
-	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException {
+	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException {
 		if(GerenciaUsuario.editarUsuario(email, usuario)) {
 			JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");
 		}else {
-			JOptionPane.showMessageDialog(null, "Foi aqui!");
+			JOptionPane.showMessageDialog(null, "Operação não realizada!");
 		}
 	}
 	public void removerUsuarioGerenciaUsuario(String email) {

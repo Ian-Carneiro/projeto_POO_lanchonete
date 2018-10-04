@@ -1,4 +1,4 @@
-package com.lanchonete.view;
+	package com.lanchonete.view;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import com.lanchonete.control.GerenciaUsuario;
+import com.lanchonete.exception.CampoVazioException;
 import com.lanchonete.exception.DataNascimentoException;
 import com.lanchonete.model.Usuario;
 
@@ -54,11 +55,11 @@ public class TelaCadastroUsuario extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		JLabel lblCpf = new JLabel("CPF");
+		JLabel lblCpf = new JLabel("CPF *");
 		lblCpf.setBounds(11, 15, 84, 15);
 		contentPane.add(lblCpf);
 		
-		JLabel lblNome = new JLabel("Nome");
+		JLabel lblNome = new JLabel("Nome *");
 		lblNome.setBounds(11, 43, 84, 15);
 		contentPane.add(lblNome);
 		
@@ -66,20 +67,20 @@ public class TelaCadastroUsuario extends JFrame {
 		lblTelefone.setBounds(11, 129, 58, 15);
 		contentPane.add(lblTelefone);
 		
-		JLabel lblNascimento = new JLabel("Nascimento");
-		lblNascimento.setBounds(11, 157, 84, 15);
+		JLabel lblNascimento = new JLabel("Nascimento*");
+		lblNascimento.setBounds(11, 157, 94, 15);
 		contentPane.add(lblNascimento);
 		
 		JLabel lblSetor = new JLabel("Setor");
 		lblSetor.setBounds(11, 186, 84, 15);
 		contentPane.add(lblSetor);
 		
-		JLabel lblEmail = new JLabel("E-mail");
+		JLabel lblEmail = new JLabel("E-mail *");
 		lblEmail.setBounds(11, 72, 84, 15);
 		contentPane.add(lblEmail);
 		
 		ftfCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
-		ftfCpf.setBounds(101, 11, 338, 22);
+		ftfCpf.setBounds(111, 11, 328, 22);
 		contentPane.add(ftfCpf);
 		
 		cbSetor = new JComboBox(new String[]{"ATENDIMENTO", "COZINHA", "CAIXA", "GERENCIA"});
@@ -91,29 +92,29 @@ public class TelaCadastroUsuario extends JFrame {
 		contentPane.add(cbEmail);
 		
 		tfNome = new JTextField();
-		tfNome.setBounds(101, 39, 338, 22);
+		tfNome.setBounds(111, 39, 328, 22);
 		contentPane.add(tfNome);
 		tfNome.setColumns(10);
 		
 		JFormattedTextField ftfTelefone = new JFormattedTextField(new MaskFormatter("(##)#####-####"));
-		ftfTelefone.setBounds(101, 125, 338, 22);
+		ftfTelefone.setBounds(111, 125, 328, 22);
 		contentPane.add(ftfTelefone);
 		
 		JFormattedTextField ftfData = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		ftfData.setBounds(101, 153, 338, 22);
+		ftfData.setBounds(111, 153, 328, 22);
 		contentPane.add(ftfData);
 		
 		tfEmail = new JTextField();
-		tfEmail.setBounds(101, 67, 148, 24);
+		tfEmail.setBounds(111, 67, 138, 24);
 		contentPane.add(tfEmail);
 		tfEmail.setColumns(10);
 		
-		JLabel lblSenha = new JLabel("Senha");
+		JLabel lblSenha = new JLabel("Senha *");
 		lblSenha.setBounds(11, 101, 84, 15);
 		contentPane.add(lblSenha);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(101, 97, 338, 22);
+		passwordField.setBounds(111, 97, 328, 22);
 		contentPane.add(passwordField);
 		
 		JButton btnSalvar = new JButton("Salvar");
@@ -138,6 +139,8 @@ public class TelaCadastroUsuario extends JFrame {
 					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
 				}catch(DateTimeParseException e) {
 					JOptionPane.showMessageDialog(null, "Data fornecida é inválida", "Data inválida", JOptionPane.ERROR_MESSAGE);
+				} catch (CampoVazioException e) {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!", "Campos vazios", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -155,7 +158,7 @@ public class TelaCadastroUsuario extends JFrame {
 		btnVoltar.setBounds(250, 226, 114, 25);
 		contentPane.add(btnVoltar);
 	}
-	public void addUsuarioGerenciaUsuario(Usuario u) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException {
+	public void addUsuarioGerenciaUsuario(Usuario u) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException {
 		if(GerenciaUsuario.adicionarLogin(u)) {
 			JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 		}else {
