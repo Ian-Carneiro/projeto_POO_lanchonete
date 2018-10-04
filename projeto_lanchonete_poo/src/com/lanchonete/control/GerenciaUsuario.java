@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.lanchonete.dao.DaoMapGenerico;
 import com.lanchonete.exception.CampoVazioException;
 import com.lanchonete.exception.DataNascimentoException;
+import com.lanchonete.exception.MenorIdadeException;
 import com.lanchonete.model.Usuario;
 
 /**
@@ -35,8 +37,9 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 	 * @throws FileNotFoundException 
 	 * @throws DataNascimentoException 
 	 * @throws CampoVazioException 
+	 * @throws MenorIdadeException 
 	 * */
-	public static boolean adicionarLogin(Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException {
+	public static boolean adicionarLogin(Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException, MenorIdadeException {
 		validaUsuario(usuario);
 		HashMap<String, Usuario> usuarios = getEstrutura(file);
 		if(buscarUsuario(usuario.getEmail())==null) {//verifica se ja nao existe o usuario
@@ -74,10 +77,11 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 	 * @throws FileNotFoundException 
 	 * @throws DataNascimentoException 
 	 * @throws CampoVazioException 
+	 * @throws MenorIdadeException 
 	 * */
 	//recebe um email por fora porque se for buscar pelo email do usuario(usuario editado) passado
 	//pode acontecer do email dele ter sido mudado: Busca pelo email antigo
-	public static boolean editarUsuario(String email, Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException {
+	public static boolean editarUsuario(String email, Usuario usuario) throws FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException, MenorIdadeException {
 		validaUsuario(usuario);
 		if(buscarUsuario(email)!=null) {//verifica se so usuario que vai ser editado existe
 			if(usuario.getNascimento().isAfter(LocalDate.now())) {
@@ -123,12 +127,16 @@ public class GerenciaUsuario extends DaoMapGenerico<Usuario>{
 		return u;
 	}
 	
-	public static void validaUsuario(Usuario usuario) throws DataNascimentoException, CampoVazioException {
+	public static void validaUsuario(Usuario usuario) throws DataNascimentoException, CampoVazioException, MenorIdadeException {
 		if(usuario.getCpf().equals("   .   .   -  ")) {
 			throw new CampoVazioException();
 		}
 		if(usuario.getNascimento().isAfter(LocalDate.now())) {
 			throw new DataNascimentoException();
+		}
+		Period p = Period.between(usuario.getNascimento(), LocalDate.now());
+		if(p.getYears()<16) {
+			throw new MenorIdadeException();
 		}
 		String[] email = usuario.getEmail().split("@");
 		if(email[0].equals("")||usuario.getNome().equals("")||usuario.getSenha().equals("")) {

@@ -13,6 +13,7 @@ import javax.swing.text.MaskFormatter;
 import com.lanchonete.control.GerenciaUsuario;
 import com.lanchonete.exception.CampoVazioException;
 import com.lanchonete.exception.DataNascimentoException;
+import com.lanchonete.exception.MenorIdadeException;
 import com.lanchonete.model.Usuario;
 
 import javax.swing.JLabel;
@@ -141,6 +142,8 @@ public class TelaCadastroUsuario extends JFrame {
 					JOptionPane.showMessageDialog(null, "Data fornecida é inválida", "Data inválida", JOptionPane.ERROR_MESSAGE);
 				} catch (CampoVazioException e) {
 					JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!", "Campos vazios", JOptionPane.ERROR_MESSAGE);
+				} catch (MenorIdadeException e) {
+					JOptionPane.showMessageDialog(null, "Usuário com idade inadequada", "Idade inadequada", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -158,7 +161,7 @@ public class TelaCadastroUsuario extends JFrame {
 		btnVoltar.setBounds(250, 226, 114, 25);
 		contentPane.add(btnVoltar);
 	}
-	public void addUsuarioGerenciaUsuario(Usuario u) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException {
+	public void addUsuarioGerenciaUsuario(Usuario u) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException, MenorIdadeException {
 		if(GerenciaUsuario.adicionarLogin(u)) {
 			JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
 		}else {

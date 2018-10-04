@@ -13,6 +13,7 @@ import javax.swing.text.MaskFormatter;
 import com.lanchonete.control.GerenciaUsuario;
 import com.lanchonete.exception.CampoVazioException;
 import com.lanchonete.exception.DataNascimentoException;
+import com.lanchonete.exception.MenorIdadeException;
 import com.lanchonete.model.Usuario;
 
 import javax.swing.JLabel;
@@ -163,10 +164,12 @@ public class TelaEditarUsuario extends JFrame {
 					JOptionPane.showMessageDialog(null, "Falha ao editar usuário", "Falha", JOptionPane.ERROR_MESSAGE);
 				}catch(IOException ex) {
 					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
-				} catch (DataNascimentoException e1) {
+				} catch (DataNascimentoException ex) {
 					JOptionPane.showMessageDialog(null, "Data de nascimento após a data atual", "Data de nascimento inválida", JOptionPane.ERROR_MESSAGE);
-				} catch (CampoVazioException e1) {
+				} catch (CampoVazioException ex) {
 					JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!", "Campos vazios", JOptionPane.ERROR_MESSAGE);
+				} catch (MenorIdadeException eX) {
+					JOptionPane.showMessageDialog(null, "Usuário com idade inadequada", "Idade inadequada", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -200,7 +203,7 @@ public class TelaEditarUsuario extends JFrame {
 		contentPane.add(btnVoltar);
 	}
 	//deve apenas lançar, se tratar as exceções aqui é gerado erro "lógico"
-	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException {
+	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException, MenorIdadeException {
 		if(GerenciaUsuario.editarUsuario(email, usuario)) {
 			JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");
 		}else {
