@@ -130,7 +130,6 @@ public class TelaEditarUsuario extends JFrame {
 				break;
 			}
 		}
-		System.out.println(i);
 		cbEmail.setSelectedIndex(i);
 		cbEmail.setBounds(261, 67, 178, 24);
 		contentPane.add(cbEmail);
