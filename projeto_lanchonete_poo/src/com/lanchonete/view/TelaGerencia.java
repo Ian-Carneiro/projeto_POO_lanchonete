@@ -42,7 +42,7 @@ public class TelaGerencia extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);//new FlowLayout());//<<<<<<<<<
+		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
 		JLabel lblInicio = new JLabel("Inicio");

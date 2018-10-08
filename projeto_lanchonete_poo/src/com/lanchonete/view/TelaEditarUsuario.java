@@ -201,7 +201,6 @@ public class TelaEditarUsuario extends JFrame {
 		btnVoltar.setBounds(307, 213, 114, 25);
 		contentPane.add(btnVoltar);
 	}
-	//deve apenas lançar, se tratar as exceções aqui é gerado erro "lógico"
 	public void editarUsuarioGerenciaUsuario(String email, Usuario usuario) throws HeadlessException, FileNotFoundException, ClassNotFoundException, IOException, DataNascimentoException, CampoVazioException, MenorIdadeException {
 		if(GerenciaUsuario.editarUsuario(email, usuario)) {
 			JOptionPane.showMessageDialog(null, "Dados do usuário atualizados!");

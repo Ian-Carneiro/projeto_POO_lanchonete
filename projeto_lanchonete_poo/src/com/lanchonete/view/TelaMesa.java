@@ -56,7 +56,6 @@ public class TelaMesa extends JFrame {
 						JOptionPane.showMessageDialog(null, "A comanda não pôde ser criada!");
 					}
 				} catch (HeadlessException | ClassNotFoundException | IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -98,7 +97,6 @@ public class TelaMesa extends JFrame {
 						dispose();
 					}
 				} catch (HeadlessException | ClassNotFoundException | IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

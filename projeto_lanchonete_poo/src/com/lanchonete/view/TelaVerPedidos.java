@@ -33,7 +33,7 @@ public class TelaVerPedidos extends JFrame {
 	 * @throws FileNotFoundException 
 	 */
 	public TelaVerPedidos() throws FileNotFoundException, ClassNotFoundException, IOException {
-		setTitle("Pedidos");//<<<<<<<<<<<<<<<<<<<<<<<<
+		setTitle("Pedidos");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 557, 317);

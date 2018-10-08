@@ -98,14 +98,10 @@ public class TelaInicial extends JFrame {
 						JOptionPane.showMessageDialog(null, "Não Foi possível altenticar");
 						passwordField.setText("");
 					}
-				} catch (HeadlessException e1) {
-					System.out.println("HeadlessException");
-				} catch (FileNotFoundException e1) {
-					System.out.println("FileNotFoundException");
-				} catch (ClassNotFoundException e1) {
-					System.out.println("ClassNotFoundException");
-				} catch (IOException e1) {
-					System.out.println("IOException");
+				} catch (HeadlessException | ClassNotFoundException e1) {
+					e1.printStackTrace();
+				} catch(IOException e1){
+					JOptionPane.showMessageDialog(null, "Falha ao acessar arquivo", "Falha", JOptionPane.ERROR_MESSAGE);
 				}
 			}			
 		});
@@ -122,12 +118,10 @@ public class TelaInicial extends JFrame {
 		JLabel lblUsurio = new JLabel("Usuário");
 		lblUsurio.setBackground(Color.BLACK);
 		lblUsurio.setFont(new Font("Chilanka", Font.BOLD, 18));
-//		lblUsurio.setForeground(new Color(153, 0, 0));
 		lblUsurio.setBounds(58, 195, 80, 20);
 		contentPane.add(lblUsurio);
 		
 		JLabel lblSenha = new JLabel("Senha");
-//		lblSenha.setForeground(new Color(153, 0, 0));
 		lblSenha.setFont(new Font("Chilanka", Font.BOLD, 18));
 		lblSenha.setBounds(58, 227, 66, 28);
 		contentPane.add(lblSenha);
